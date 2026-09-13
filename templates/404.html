@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Страница не найдена — {{ site.title }}{% endblock %}
+{% block bodyclass %}room{% endblock %}
+{% block body %}
+<main>
+  <header class="room__head">
+    <div class="wrap">
+      <nav class="crumbs"><a href="{{ root }}">{{ site.title }}</a></nav>
+      <h1>Такой страницы нет</h1>
+      <p class="room__meta">Возможно, ссылка устарела: книга обновляется, и адреса версий меняются.</p>
+    </div>
+  </header>
+  <section class="section section--nav">
+    <div class="wrap">
+      <a class="back" href="{{ root }}">Все помещения</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

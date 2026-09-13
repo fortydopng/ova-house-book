@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block bodyclass %}home{% endblock %}
+{% block body %}
+<header class="hero">
+  <img src="{{ root }}{{ site.hero_src }}" alt="" fetchpriority="high">
+  <div class="hero__text">
+    <h1>{{ site.title }}</h1>
+    <p class="hero__sub">{{ site.subtitle }}</p>
+    <p class="hero__upd">Обновлено {{ site.updated_text }}</p>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="wrap">
+      <h2>Помещения</h2>
+      <p class="lead">{{ book.progress }}.</p>
+
+      {% if book.visualized %}
+      <div class="features">
+        {% for r in book.visualized %}
+        <a class="feature" href="{{ root }}{{ r.url }}">
+          <img src="{{ root }}{{ r.cover.src_small }}" srcset="{{ root }}{{ r.cover.src_small }} 900w, {{ root }}{{ r.cover.src }} 1600w" sizes="(min-width: 760px) 50vw, 100vw" alt="{{ r.name }}, {{ r.cover.caption|lower }}" loading="lazy">
+          <span class="feature__meta">
+            <span class="feature__name"><span class="feature__code">{{ r.code }}</span>{{ r.name }}</span>
+            <span class="feature__area">{{ r.area_text }}</span>
+          </span>
+          <span class="feature__status">{{ r.status_text }}. Версия {{ r.current.n }}, {{ r.current.date_text }}</span>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <ol class="expl">
+        {% for r in book.rooms %}
+        <li>
+          <span class="expl__code">{{ r.code }}</span>
+          {% if r.visualized %}
+          <a class="expl__name" href="{{ root }}{{ r.url }}">{{ r.name }}</a>
+          {% else %}
+          <span class="expl__name">{{ r.name }}</span>
+          {% endif %}
+          <span class="expl__area">{{ r.area_text }}</span>
+          {% if r.status_text %}<span class="expl__status is-{{ r.status }}">{{ r.status_text }}</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--plan">
+    <div class="wrap">
+      <h2>План первого этажа</h2>
+      <div class="plan-frame">
+      <div class="plan">
+        <img src="{{ root }}img/plan/house.png" alt="План первого этажа с расстановкой мебели" loading="lazy">
+        {% for r in book.visualized if r.plan_box %}
+        <a class="plan__hot" href="{{ root }}{{ r.url }}" aria-label="{{ r.code }} {{ r.name }}"
+           style="left:{{ r.plan_box.left }}%;top:{{ r.plan_box.top }}%;width:{{ r.plan_box.width }}%;height:{{ r.plan_box.height }}%"></a>
+        {% endfor %}
+      </div>
+      </div>
+      <p class="caption">Выделены помещения, по которым есть визуализация. Нажмите на помещение, чтобы открыть его.</p>
+    </div>
+  </section>
+
+  <section class="section section--about">
+    <div class="wrap wrap--narrow">
+      <h2>О книге</h2>
+      {% for para in site.about.strip().split('\n\n') %}
+      <p>{{ para.replace('\n', ' ') }}</p>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}

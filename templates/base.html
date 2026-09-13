@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% block title %}{{ site.title }} — {{ site.subtitle }}{% endblock %}</title>
+<meta name="description" content="{{ site.description }}">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F7F6F3">
+<meta name="apple-mobile-web-app-title" content="{{ site.title }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% block ogtitle %}{{ site.title }} — {{ site.subtitle }}{% endblock %}">
+<meta property="og:description" content="{{ site.description }}">
+<meta property="og:image" content="{{ site.base_url }}og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{{ root }}static/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="{{ root }}static/fonts/cormorant-560.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ root }}static/style.css?v={{ build_id }}">
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+{% block body %}{% endblock %}
+<footer class="foot">
+  <div class="wrap">
+    <p>{{ site.title }}, {{ site.subtitle|lower }}. Версия {{ site.version }}, обновлена {{ site.updated_text }}.</p>
+  </div>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

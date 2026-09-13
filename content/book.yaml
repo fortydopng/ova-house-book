@@ -1,0 +1,134 @@
+# OVA-HOUSE — книга интерьеров. Единственный источник правды для сайта.
+# Сайт собирается командой: python build.py  (результат в docs/)
+
+site:
+  title: OVA-HOUSE
+  subtitle: Книга интерьеров
+  description: Визуализации интерьеров частного дома, по помещениям, в актуальных версиях.
+  base_url: https://fortydopng.github.io/ova-house-book/
+  version: 1
+  updated: 2026-09-13
+  hero:
+    room: "1.11"
+    image: view-1
+  about: |
+    Здесь собраны визуализации интерьеров дома — по каждому помещению, в актуальной версии.
+    Геометрия помещений, окна и планировка соответствуют проекту; мебель и предметы подобраны
+    как убедительное приближение к выбранным референсам и уточняются по ходу согласования.
+    Книга обновляется по мере работы: у каждого помещения есть номер версии и дата.
+
+# Статусы: planned — не начато (на сайте не подписывается), work — в работе,
+# review — на рассмотрении, approved — утверждено.
+statuses:
+  planned: ""
+  work: В работе
+  review: На рассмотрении
+  approved: Утверждено
+
+# Типы изображений (подпись под кадром, если задано поле kind):
+kinds:
+  project: Проектная визуализация
+  sketch: Эскиз
+  concept: Концепт
+
+rooms:
+  - code: "1.02"
+    slug: 1-02
+    name: Тамбур
+    area: 7.37
+    status: planned
+
+  - code: "1.03"
+    slug: 1-03
+    name: Котельная
+    area: 5.22
+    status: planned
+
+  - code: "1.04"
+    slug: 1-04
+    name: Холл
+    area: 16.84
+    status: planned
+
+  - code: "1.05"
+    slug: 1-05
+    name: Гостевая
+    area: 12.40
+    status: planned
+
+  - code: "1.06"
+    slug: 1-06
+    name: Спальня
+    area: 14.65
+    status: planned
+
+  - code: "1.07"
+    slug: 1-07
+    name: Санузел общий
+    area: 4.28
+    status: planned
+
+  - code: "1.08"
+    slug: 1-08
+    name: Кухня-гостиная
+    area: 50.73
+    status: planned
+
+  - code: "1.09"
+    slug: 1-09
+    name: Кладовая
+    area: 2.63
+    status: planned
+
+  - code: "1.10"
+    slug: 1-10
+    name: Гардеробная при мастер-спальне
+    area: 6.93
+    status: planned
+
+  - code: "1.11"
+    slug: 1-11
+    name: Мастер-спальня
+    area: 18.03
+    status: review
+    # Положение на плане дома, в процентах от изображения docs/img/plan/house.png:
+    plan_box: {left: 75.3, top: 23.5, width: 23.3, height: 27.3}
+    plan_fragment: img/plan/1-11.png
+    intent: |
+      Спальня с панорамным остеклением на две стороны и выходом в сад. Стена изголовья
+      набрана деревянными панелями во всю высоту; у окна — письменный стол, напротив
+      кровати — комод, из спальни открыт проход в гардеробную. Палитра тёплая: светлый
+      камень пола, натуральный лён, тёмное дерево, приглушённая зелень пледа.
+    versions:
+      - n: 1
+        date: 2026-09-13
+        note: Первая подача.
+        images:
+          - id: view-1
+            caption: Вид от рабочего стола
+          - id: view-2
+            caption: Вид от окна
+          - id: view-3
+            caption: Вид от изголовья в сторону входа
+          - id: view-4
+            caption: Вид от изголовья в сторону окна
+          - id: view-5
+            caption: Вид сверху
+
+  - code: "1.12"
+    slug: 1-12
+    name: Санузел при мастер-спальне
+    area: 7.02
+    status: planned
+
+  - code: "1.13"
+    slug: 1-13
+    name: Постирочная
+    area: 4.06
+    status: planned
+
+  - code: "1.14"
+    slug: 1-14
+    name: Терраса
+    area: 30.90
+    status: planned

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ room.code }} {{ room.name }} — {{ site.title }}{% endblock %}
+{% block ogtitle %}{{ room.name }} — {{ site.title }}{% endblock %}
+{% block bodyclass %}room{% endblock %}
+{% block body %}
+<main>
+  <header class="room__head">
+    <div class="wrap">
+      <nav class="crumbs"><a href="{{ root }}">{{ site.title }}</a></nav>
+      <p class="room__code">{{ room.code }}</p>
+      <h1>{{ room.name }}</h1>
+      <p class="room__meta">{{ room.area_text }}</p>
+      <p class="room__meta">Версия {{ room.current.n }}, {{ room.current.date_text }}. {{ room.status_text }}.</p>
+    </div>
+  </header>
+
+  <section class="gallery">
+    <div class="wrap">
+      {% for img in room.current.images %}
+      <figure>
+        <a class="gallery__link" href="{{ root }}{{ img.src }}" data-index="{{ loop.index0 }}">
+          <img src="{{ root }}{{ img.src_small }}" srcset="{{ root }}{{ img.src_small }} 900w, {{ root }}{{ img.src }} 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="{{ room.name }}, {{ img.caption|lower }}" {% if not loop.first %}loading="lazy"{% endif %}>
+        </a>
+        <figcaption>{{ img.caption }}{% if img.kind_text %}<span class="kind">{{ img.kind_text }}</span>{% endif %}</figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% if room.intent %}
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <h2>Замысел</h2>
+      <p>{{ room.intent.strip().replace('\n', ' ') }}</p>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if room.plan_fragment %}
+  <section class="section section--fragment">
+    <div class="wrap wrap--narrow">
+      <h2>На плане</h2>
+      <img class="fragment" src="{{ root }}{{ room.plan_fragment }}" alt="Фрагмент плана: {{ room.name }}" loading="lazy">
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section section--nav">
+    <div class="wrap">
+      <a class="back" href="{{ root }}">Все помещения</a>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" hidden aria-modal="true" role="dialog" aria-label="Просмотр изображений">
+  <button class="lb__close" type="button" aria-label="Закрыть">Закрыть</button>
+  <div class="lb__strip">
+    {% for img in room.current.images %}
+    <div class="lb__slide">
+      <img src="{{ root }}{{ img.src }}" alt="{{ room.name }}, {{ img.caption|lower }}" loading="lazy">
+      <p class="lb__cap">{{ img.caption }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="lb__count" aria-live="polite"><span>1</span> из {{ room.current.images|length }}</p>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ root }}static/app.js?v={{ build_id }}"></script>{% endblock %}
