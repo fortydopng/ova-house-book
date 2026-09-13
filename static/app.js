@@ -1,4 +1,25 @@
 (function () {
+  // Day / evening toggles on paired figures
+  var pairs = document.querySelectorAll('.pair');
+  Array.prototype.forEach.call(pairs, function (fig) {
+    var btns = fig.querySelectorAll('.light__btn');
+    Array.prototype.forEach.call(btns, function (btn) {
+      btn.addEventListener('click', function () {
+        var light = btn.getAttribute('data-light');
+        fig.setAttribute('data-light', light);
+        Array.prototype.forEach.call(btns, function (b) {
+          var on = b === btn;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        var day = fig.querySelector('.pair__day'), ev = fig.querySelector('.pair__evening');
+        var show = light === 'evening' ? ev : day, hide = light === 'evening' ? day : ev;
+        show.removeAttribute('aria-hidden'); show.removeAttribute('tabindex');
+        hide.setAttribute('aria-hidden', 'true'); hide.setAttribute('tabindex', '-1');
+      });
+    });
+  });
+
   var lb = document.getElementById('lb');
   if (!lb) return;
   var strip = lb.querySelector('.lb__strip');

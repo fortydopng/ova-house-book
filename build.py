@@ -42,18 +42,38 @@ def prepare(book: dict) -> dict:
             cur = versions[-1]
             r["current"] = cur
             cur["date_text"] = ru_date(cur["date"])
+            slides = []          # flat list for the lightbox: day and evening variants alike
             for img in cur["images"]:
                 base = f"img/{r['slug']}/v{cur['n']}/{img['id']}"
                 img["src"] = f"{base}-1600.webp"
                 img["src_small"] = f"{base}-900.webp"
                 img["kind_text"] = kinds.get(img.get("kind"), "")
+                if img.get("evening"):
+                    ev = f"img/{r['slug']}/v{cur['n']}/{img['evening']}"
+                    img["src_evening"] = f"{ev}-1600.webp"
+                    img["src_small_evening"] = f"{ev}-900.webp"
+                    img["slide_day"] = len(slides)
+                    slides.append({"src": img["src"], "caption": f"{img['caption']}, день"})
+                    img["slide_evening"] = len(slides)
+                    slides.append({"src": img["src_evening"], "caption": f"{img['caption']}, вечер"})
+                else:
+                    img["slide_day"] = len(slides)
+                    slides.append({"src": img["src"], "caption": img["caption"]})
+            cur["slides"] = slides
             r["cover"] = cur["images"][0]
             r["url"] = f"rooms/{r['slug']}/"
+        # composition: status labels (group-level default, item-level override)
+        labels = book.get("item_statuses", {})
+        for g in r.get("composition") or []:
+            g["status_text"] = labels.get(g.get("status"), "")
+            for it in g["items"]:
+                st = it.get("status")
+                it["status_text"] = labels.get(st, "") if st and st != g.get("status") else ""
     site = book["site"]
     site["updated_text"] = ru_date(site["updated"])
     hero_room = next(x for x in rooms if x["code"] == site["hero"]["room"])
     hero_img = next(i for i in hero_room["current"]["images"] if i["id"] == site["hero"]["image"])
-    site["hero_src"] = hero_img["src"]
+    site["hero_src"] = hero_img.get("src_evening") if site["hero"].get("light") == "evening" else hero_img["src"]
     book["visualized"] = [r for r in rooms if r["visualized"]]
     book["progress"] = f"Визуализировано помещений: {len(book['visualized'])} из {len(rooms)}"
     return book

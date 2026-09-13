@@ -6,7 +6,7 @@ site:
   subtitle: Книга интерьеров
   description: Визуализации интерьеров частного дома, по помещениям, в актуальных версиях.
   base_url: https://fortydopng.github.io/ova-house-book/
-  version: 2
+  version: 3
   updated: 2026-09-13
   hero:
     room: "1.11"
@@ -28,6 +28,13 @@ statuses:
   work: В работе
   review: На рассмотрении
   approved: Утверждено
+
+# Статус предмета в составе (на уровне группы или отдельной позиции):
+# product — изделие производителя, custom — на заказ, tbd — подбирается.
+item_statuses:
+  product: Изделие производителя
+  custom: На заказ
+  tbd: Подбирается
 
 # Типы изображений (подпись под кадром, если задано поле kind):
 kinds:
@@ -103,10 +110,70 @@ rooms:
       набрана деревянными панелями во всю высоту; у окна — письменный стол, напротив
       кровати — комод, из спальни открыт проход в гардеробную. Палитра тёплая: светлый
       камень пола, натуральный лён, тёмное дерево, приглушённая зелень пледа.
+    # Источник: OVA-HOUSE / 21_Pro_Render / 1.11_Мастер-спальня — паспорт v02 от 13.09.2026 (M08 / S02).
+    facts:
+      - 3,63 × 4,98 м, площадь 18,03 м²
+      - Потолок наклонный, высота от 3,21 до 3,90 м; две балки — деревянная и стальная
+      - Два окна 2700 × 2600 мм, северное и восточное
+      - Открытый проход в гардеробную 1.10 шириной 1200 мм
+      - "Освещение по проекту: 14 потолочных светильников"
+    composition_intro: Изделия производителей для спальни ещё не выбраны — всё показанное задаёт образ и размеры, по которым будут подбираться конкретные вещи.
+    composition:
+      - group: Мебель
+        status: tbd
+        note: образ и размеры зафиксированы, конкретные изделия выбираются
+        items:
+          - role: Кровать
+            product: Каркас из тёмного дуба, мягкое изголовье в кремовой ткани
+            size: 2100 × 1800 мм
+          - role: Прикроватные тумбы
+            product: 2 шт., тёмный дуб, столешница из светлого камня, бронзовая ручка
+            size: 500 × 400 × 500 мм
+          - role: Письменный стол
+            product: Тёмное дерево, с ящиком
+            size: 1200 × 600 × 750 мм
+          - role: Стул
+            product: Тёмный деревянный каркас, кремовая обивка
+          - role: Комод у южной стены
+            product: Тёмный дуб, столешница из светлого камня
+            size: 1500 × 400 × 750 мм
+      - group: Отделка
+        status: tbd
+        note: направление зафиксировано, коллекции и образцы подбираются
+        items:
+          - role: Стена за кроватью
+            product: Панели тёмного дуба с вертикальным рисунком, матовые
+          - role: Пол
+            product: Светлый бежевый травертин или камень, матовый
+          - role: Стены и потолок
+            product: Тёплая светлая матовая штукатурка
+          - role: Мелкие металлические детали
+            product: Приглушённая тёмная бронза, без яркого золота
+      - group: Свет
+        status: tbd
+        items:
+          - role: Потолочные светильники
+            product: 14 встроенных, тёплый свет; референс Flos Light Shadow Pro
+            url: https://professional.flos.com/en/global/product/light-shadow-pro-45-fixed-optic-medium-05.2501.14/
+            link_text: Референс
+          - role: Прикроватные лампы
+            product: 2 шт., светлая керамика, кремовый тканевый абажур
+      - group: Текстиль
+        status: tbd
+        items:
+          - role: Шторы
+            product: Кремовая ткань до пола, на обоих окнах
+          - role: Ковёр
+            product: Оттенок greige, шерстяной образ
+            size: около 2200 × 2500 мм
+          - role: Плед
+            product: Приглушённый оливковый
+          - role: Постельное бельё
+            product: Кремовое, слоновая кость
+    accessories_note: Ваза с веткой, книги и графика над комодом — антураж для настроения кадра; в заказ не входят.
     versions:
       - n: 1
         date: 2026-09-13
-        note: Первая подача.
         images:
           - id: view-1
             caption: Вид от рабочего стола
@@ -140,35 +207,53 @@ rooms:
       - Окно над ванной 900 × 1750 мм; вход из гардеробной 1.10
       - Ванна у окна, душ 900 × 900 мм в углу; умывальник, шкаф и унитаз у противоположной стены
       - "Освещение по проекту: 8 потолочных светильников и подсветка шкафа"
-    composition_intro: Всё, что видно на изображениях, делится на три группы.
+    composition_intro: "Рядом с каждым предметом — что это в жизни: изделие производителя, вещь на заказ или позиция, которая ещё подбирается."
     composition:
-      - group: Изделия производителей
-        note: Конкретные модели. Ссылки ведут на официальные страницы производителей.
+      - group: Сантехника
         items:
           - role: Ванна
             product: Agape Lariana, белый Cristalplant
+            status: product
             size: 1680 × 770 × 563 мм
             url: https://www.agapedesign.it/en-GB/bathtubs/freestanding/lariana-outdoor/avas1080
           - role: Умывальник
             product: Ceramica Dolomite Noemi, овальный накладной, белый матовый
+            status: product
             size: 600 × 360 × 160 мм
             url: https://www.ceramicadolomite.it/prodotto/lavabo-da-appoggio-60x36-noemi-2/
+          - role: Смеситель умывальника
+            product: FIMA Carlo Frattini Park Lane F1311, высокий, отделка шампань
+            status: product
+            url: https://fimacf.com/prodotto/f1311-lavabo-tre-fori/
+          - role: Смеситель ванны
+            product: FIMA Carlo Frattini Park Lane F1379X2, настенный термостатический, отделка шампань
+            status: product
+            url: https://fimacf.com/en/product/f1379x2-two-outlets-thermostatic-built-in-bath-mixer/
+          - role: Унитаз
+            product: Напольный, с бачком
+            status: tbd
+          - role: Душевой уголок
+            product: Ограждение и оборудование в хроме
+            status: tbd
+            size: 900 × 900 мм
+      - group: Отделка
+        items:
           - role: Плитка пола и стен
             product: FAP Ceramiche Materia Classica, Tortora
+            status: product
             size: 600 × 1200 мм
             url: https://www.fapceramiche.com/en/products/materia-classica/tortora-classica/gres/
           - role: Рельефная плитка у ванны
             product: FAP Ceramiche Materia Classica, Groove Tortora
+            status: product
             size: 500 × 1200 мм
             url: https://www.fapceramiche.com/en/products/materia-classica/groove-tortora/wall/
-          - role: Смеситель умывальника
-            product: FIMA Carlo Frattini Park Lane F1311, высокий, отделка шампань
-            url: https://fimacf.com/prodotto/f1311-lavabo-tre-fori/
-          - role: Смеситель ванны
-            product: FIMA Carlo Frattini Park Lane F1379X2, настенный термостатический, отделка шампань
-            url: https://fimacf.com/en/product/f1379x2-two-outlets-thermostatic-built-in-bath-mixer/
-      - group: На заказ
-        note: Изготавливаются по чертежам в тёмном орехе; производитель выбирается позже.
+          - role: Стены и потолок выше плитки
+            product: Тёплый белый матовый финиш
+            status: tbd
+      - group: Мебель
+        status: custom
+        note: изготавливается по чертежам в тёмном орехе, производитель выбирается позже
         items:
           - role: Тумба умывальника
             product: Два фасада, столешница под накладную чашу
@@ -179,14 +264,10 @@ rooms:
           - role: Зеркало
             product: Прямоугольное, тонкая кромка под бронзу
             size: 1160 × 820 мм
-      - group: Подбирается
-        note: Место и размер зафиксированы, конкретная модель ещё не выбрана.
+      - group: Свет
+        status: tbd
+        note: место и тип зафиксированы, комплект уточняется
         items:
-          - role: Унитаз
-            product: Напольный, с бачком
-          - role: Душевой уголок
-            product: Ограждение и оборудование в хроме
-            size: 900 × 900 мм
           - role: Потолочные светильники
             product: 8 встроенных, тёплый свет; референс Flos Light Shadow Pro
             url: https://professional.flos.com/en/global/product/light-shadow-pro-45-fixed-optic-medium-05.2501.14/
@@ -195,14 +276,11 @@ rooms:
             product: Линия тёплого света; референс Linea Light Rubber 3D
             url: https://www.linealight.com/en/group_rubber/rubber-3d/c0015wdi01004
             link_text: Референс
-          - role: Стены и потолок выше плитки
-            product: Тёплый белый матовый финиш
     accessories_note: Полотенца, флаконы, дозатор и стакан на изображениях — антураж для настроения кадра; в заказ не входят.
     # Внутренние коды кадров: OVA_R112_{A_ENTRANCE,B_VANITY,C_LIGHTING}_M08_S02_v01
     versions:
       - n: 1
         date: 2026-09-13
-        note: Первая подача.
         images:
           - id: a-entrance
             caption: Вид от входа

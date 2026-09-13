@@ -11,18 +11,39 @@
       <h1>{{ room.name }}</h1>
       <p class="room__meta">{{ room.area_text }}</p>
       <p class="room__meta">Версия {{ room.current.n }}, {{ room.current.date_text }}. {{ room.status_text }}.</p>
+      {% if room.current.note %}<p class="room__note">{{ room.current.note }}</p>{% endif %}
     </div>
   </header>
 
   <section class="gallery">
     <div class="wrap">
       {% for img in room.current.images %}
+      {% if img.src_evening %}
+      <figure class="pair" data-light="day">
+        <div class="pair__stack">
+          <a class="gallery__link pair__day" href="{{ root }}{{ img.src }}" data-index="{{ img.slide_day }}">
+            <img src="{{ root }}{{ img.src_small }}" srcset="{{ root }}{{ img.src_small }} 900w, {{ root }}{{ img.src }} 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="{{ room.name }}, {{ img.caption|lower }}, день" {% if not loop.first %}loading="lazy"{% endif %}>
+          </a>
+          <a class="gallery__link pair__evening" href="{{ root }}{{ img.src_evening }}" data-index="{{ img.slide_evening }}" tabindex="-1" aria-hidden="true">
+            <img src="{{ root }}{{ img.src_small_evening }}" srcset="{{ root }}{{ img.src_small_evening }} 900w, {{ root }}{{ img.src_evening }} 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="{{ room.name }}, {{ img.caption|lower }}, вечер" loading="lazy">
+          </a>
+        </div>
+        <figcaption>
+          <span>{{ img.caption }}{% if img.kind_text %}<span class="kind">{{ img.kind_text }}</span>{% endif %}</span>
+          <span class="light" role="group" aria-label="Освещение">
+            <button type="button" class="light__btn is-on" data-light="day" aria-pressed="true">День</button>
+            <button type="button" class="light__btn" data-light="evening" aria-pressed="false">Вечер</button>
+          </span>
+        </figcaption>
+      </figure>
+      {% else %}
       <figure>
-        <a class="gallery__link" href="{{ root }}{{ img.src }}" data-index="{{ loop.index0 }}">
+        <a class="gallery__link" href="{{ root }}{{ img.src }}" data-index="{{ img.slide_day }}">
           <img src="{{ root }}{{ img.src_small }}" srcset="{{ root }}{{ img.src_small }} 900w, {{ root }}{{ img.src }} 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="{{ room.name }}, {{ img.caption|lower }}" {% if not loop.first %}loading="lazy"{% endif %}>
         </a>
         <figcaption>{{ img.caption }}{% if img.kind_text %}<span class="kind">{{ img.kind_text }}</span>{% endif %}</figcaption>
       </figure>
+      {% endif %}
       {% endfor %}
     </div>
   </section>
@@ -43,13 +64,13 @@
       {% if room.composition_intro %}<p class="lead">{{ room.composition_intro }}</p>{% endif %}
       {% for g in room.composition %}
       <h3>{{ g.group }}</h3>
-      {% if g.note %}<p class="comp__note">{{ g.note }}</p>{% endif %}
+      {% if g.note or g.status_text %}<p class="comp__note">{% if g.status_text %}{{ g.status_text }}{% if g.note %} — {{ g.note|lower }}{% endif %}{% else %}{{ g.note }}{% endif %}</p>{% endif %}
       <ul class="comp">
         {% for it in g["items"] %}
         <li>
           <span class="comp__role">{{ it.role }}</span>
           <span class="comp__body">
-            <span class="comp__product">{{ it.product }}</span>
+            <span class="comp__product">{{ it.product }}</span>{% if it.status_text %}<span class="comp__status is-{{ it.status }}">{{ it.status_text }}</span>{% endif %}
             {% if it.size %}<span class="comp__size">{{ it.size }}</span>{% endif %}
             {% if it.url %}<a class="comp__link" href="{{ it.url }}" target="_blank" rel="noopener">{{ it.link_text or "Страница производителя" }}</a>{% endif %}
           </span>
@@ -92,14 +113,14 @@
 <div class="lb" id="lb" hidden aria-modal="true" role="dialog" aria-label="Просмотр изображений">
   <button class="lb__close" type="button" aria-label="Закрыть">Закрыть</button>
   <div class="lb__strip">
-    {% for img in room.current.images %}
+    {% for sl in room.current.slides %}
     <div class="lb__slide">
-      <img src="{{ root }}{{ img.src }}" alt="{{ room.name }}, {{ img.caption|lower }}" loading="lazy">
-      <p class="lb__cap">{{ img.caption }}</p>
+      <img src="{{ root }}{{ sl.src }}" alt="{{ room.name }}, {{ sl.caption|lower }}" loading="lazy">
+      <p class="lb__cap">{{ sl.caption }}</p>
     </div>
     {% endfor %}
   </div>
-  <p class="lb__count" aria-live="polite"><span>1</span> из {{ room.current.images|length }}</p>
+  <p class="lb__count" aria-live="polite"><span>1</span> из {{ room.current.slides|length }}</p>
 </div>
 {% endblock %}
 {% block scripts %}<script src="{{ root }}static/app.js?v={{ build_id }}"></script>{% endblock %}
