@@ -6,7 +6,7 @@ site:
   subtitle: Книга интерьеров
   description: Визуализации интерьеров частного дома, по помещениям, в актуальных версиях.
   base_url: https://fortydopng.github.io/ova-house-book/
-  version: 1
+  version: 2
   updated: 2026-09-13
   hero:
     room: "1.11"
@@ -123,7 +123,7 @@ rooms:
     slug: 1-12
     name: Санузел при мастер-спальне
     area: 7.02
-    status: work
+    status: review
     plan_box: {left: 82.4, top: 67.8, width: 16.6, height: 13.6}
     plan_fragment: img/plan/1-12.png
     # Источник: OVA-HOUSE / 21_Pro_Render / 1.12_Санузел_при_мастер-спальне —
@@ -198,8 +198,18 @@ rooms:
           - role: Стены и потолок выше плитки
             product: Тёплый белый матовый финиш
     accessories_note: Полотенца, флаконы, дозатор и стакан на изображениях — антураж для настроения кадра; в заказ не входят.
-    # Изображения (добавить после загрузки рендеров, версия 1 от 13.09.2026):
-    #   a-entrance — Вид от входа; b-vanity — Зона умывальника; c-lighting — Потолок и свет
+    # Внутренние коды кадров: OVA_R112_{A_ENTRANCE,B_VANITY,C_LIGHTING}_M08_S02_v01
+    versions:
+      - n: 1
+        date: 2026-09-13
+        note: Первая подача.
+        images:
+          - id: a-entrance
+            caption: Вид от входа
+          - id: b-vanity
+            caption: Зона умывальника
+          - id: c-lighting
+            caption: Потолок и свет
 
   - code: "1.13"
     slug: 1-13
