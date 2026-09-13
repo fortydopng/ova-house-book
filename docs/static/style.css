@@ -70,8 +70,12 @@ p { margin: 0 0 1em; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 62% 50%;
+  object-position: 58% 50%;
   display: block;
+}
+@media (max-width: 759px) {
+  /* phones: the render is ceiling-heavy, so zoom the crop towards the bed and window */
+  .hero img { transform: scale(1.22); transform-origin: 56% 92%; }
 }
 .hero__text {
   position: absolute;

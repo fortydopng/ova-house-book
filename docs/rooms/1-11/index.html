@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../static/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../../static/fonts/cormorant-560.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../static/style.css?v=202609131808">
+<link rel="stylesheet" href="../../static/style.css?v=202609131816">
 </head>
 <body class="room">
 <main>
@@ -27,41 +27,45 @@
       <p class="room__code">1.11</p>
       <h1>Мастер-спальня</h1>
       <p class="room__meta">18,03 м²</p>
-      <p class="room__meta">Версия 1, 13 сентября 2026. На рассмотрении.</p>
-    </div>
+      <p class="room__meta">Версия 2, 13 сентября 2026. На рассмотрении.</p>
+<p class="room__note">В этой версии: виды обновлены под уточнённую архитектуру — наклонный потолок, балки и свет; каждый вид показан в дневном и вечернем свете.</p>    </div>
   </header>
 
   <section class="gallery">
     <div class="wrap">
-      <figure>
-        <a class="gallery__link" href="../../img/1-11/v1/view-1-1600.webp" data-index="0">
-          <img src="../../img/1-11/v1/view-1-900.webp" srcset="../../img/1-11/v1/view-1-900.webp 900w, ../../img/1-11/v1/view-1-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, вид от рабочего стола" >
-        </a>
-        <figcaption>Вид от рабочего стола</figcaption>
+      <figure class="pair" data-light="day">
+        <div class="pair__stack">
+          <a class="gallery__link pair__day" href="../../img/1-11/v2/e-day-1600.webp" data-index="0">
+            <img src="../../img/1-11/v2/e-day-900.webp" srcset="../../img/1-11/v2/e-day-900.webp 900w, ../../img/1-11/v2/e-day-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, к кровати и северному окну, день" >
+          </a>
+          <a class="gallery__link pair__evening" href="../../img/1-11/v2/e-evening-1600.webp" data-index="1" tabindex="-1" aria-hidden="true">
+            <img src="../../img/1-11/v2/e-evening-900.webp" srcset="../../img/1-11/v2/e-evening-900.webp 900w, ../../img/1-11/v2/e-evening-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, к кровати и северному окну, вечер" loading="lazy">
+          </a>
+        </div>
+        <figcaption>
+          <span>К кровати и северному окну</span>
+          <span class="light" role="group" aria-label="Освещение">
+            <button type="button" class="light__btn is-on" data-light="day" aria-pressed="true">День</button>
+            <button type="button" class="light__btn" data-light="evening" aria-pressed="false">Вечер</button>
+          </span>
+        </figcaption>
       </figure>
-      <figure>
-        <a class="gallery__link" href="../../img/1-11/v1/view-2-1600.webp" data-index="1">
-          <img src="../../img/1-11/v1/view-2-900.webp" srcset="../../img/1-11/v1/view-2-900.webp 900w, ../../img/1-11/v1/view-2-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, вид от окна" loading="lazy">
-        </a>
-        <figcaption>Вид от окна</figcaption>
-      </figure>
-      <figure>
-        <a class="gallery__link" href="../../img/1-11/v1/view-3-1600.webp" data-index="2">
-          <img src="../../img/1-11/v1/view-3-900.webp" srcset="../../img/1-11/v1/view-3-900.webp 900w, ../../img/1-11/v1/view-3-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, вид от изголовья в сторону входа" loading="lazy">
-        </a>
-        <figcaption>Вид от изголовья в сторону входа</figcaption>
-      </figure>
-      <figure>
-        <a class="gallery__link" href="../../img/1-11/v1/view-4-1600.webp" data-index="3">
-          <img src="../../img/1-11/v1/view-4-900.webp" srcset="../../img/1-11/v1/view-4-900.webp 900w, ../../img/1-11/v1/view-4-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, вид от изголовья в сторону окна" loading="lazy">
-        </a>
-        <figcaption>Вид от изголовья в сторону окна</figcaption>
-      </figure>
-      <figure>
-        <a class="gallery__link" href="../../img/1-11/v1/view-5-1600.webp" data-index="4">
-          <img src="../../img/1-11/v1/view-5-900.webp" srcset="../../img/1-11/v1/view-5-900.webp 900w, ../../img/1-11/v1/view-5-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, вид сверху" loading="lazy">
-        </a>
-        <figcaption>Вид сверху</figcaption>
+      <figure class="pair" data-light="day">
+        <div class="pair__stack">
+          <a class="gallery__link pair__day" href="../../img/1-11/v2/f-day-1600.webp" data-index="2">
+            <img src="../../img/1-11/v2/f-day-900.webp" srcset="../../img/1-11/v2/f-day-900.webp 900w, ../../img/1-11/v2/f-day-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, к восточному окну и комоду, день" loading="lazy">
+          </a>
+          <a class="gallery__link pair__evening" href="../../img/1-11/v2/f-evening-1600.webp" data-index="3" tabindex="-1" aria-hidden="true">
+            <img src="../../img/1-11/v2/f-evening-900.webp" srcset="../../img/1-11/v2/f-evening-900.webp 900w, ../../img/1-11/v2/f-evening-1600.webp 1600w" sizes="(min-width: 1160px) 1120px, 100vw" alt="Мастер-спальня, к восточному окну и комоду, вечер" loading="lazy">
+          </a>
+        </div>
+        <figcaption>
+          <span>К восточному окну и комоду</span>
+          <span class="light" role="group" aria-label="Освещение">
+            <button type="button" class="light__btn is-on" data-light="day" aria-pressed="true">День</button>
+            <button type="button" class="light__btn" data-light="evening" aria-pressed="false">Вечер</button>
+          </span>
+        </figcaption>
       </figure>
     </div>
   </section>
@@ -193,32 +197,28 @@
   <button class="lb__close" type="button" aria-label="Закрыть">Закрыть</button>
   <div class="lb__strip">
     <div class="lb__slide">
-      <img src="../../img/1-11/v1/view-1-1600.webp" alt="Мастер-спальня, вид от рабочего стола" loading="lazy">
-      <p class="lb__cap">Вид от рабочего стола</p>
+      <img src="../../img/1-11/v2/e-day-1600.webp" alt="Мастер-спальня, к кровати и северному окну, день" loading="lazy">
+      <p class="lb__cap">К кровати и северному окну, день</p>
     </div>
     <div class="lb__slide">
-      <img src="../../img/1-11/v1/view-2-1600.webp" alt="Мастер-спальня, вид от окна" loading="lazy">
-      <p class="lb__cap">Вид от окна</p>
+      <img src="../../img/1-11/v2/e-evening-1600.webp" alt="Мастер-спальня, к кровати и северному окну, вечер" loading="lazy">
+      <p class="lb__cap">К кровати и северному окну, вечер</p>
     </div>
     <div class="lb__slide">
-      <img src="../../img/1-11/v1/view-3-1600.webp" alt="Мастер-спальня, вид от изголовья в сторону входа" loading="lazy">
-      <p class="lb__cap">Вид от изголовья в сторону входа</p>
+      <img src="../../img/1-11/v2/f-day-1600.webp" alt="Мастер-спальня, к восточному окну и комоду, день" loading="lazy">
+      <p class="lb__cap">К восточному окну и комоду, день</p>
     </div>
     <div class="lb__slide">
-      <img src="../../img/1-11/v1/view-4-1600.webp" alt="Мастер-спальня, вид от изголовья в сторону окна" loading="lazy">
-      <p class="lb__cap">Вид от изголовья в сторону окна</p>
-    </div>
-    <div class="lb__slide">
-      <img src="../../img/1-11/v1/view-5-1600.webp" alt="Мастер-спальня, вид сверху" loading="lazy">
-      <p class="lb__cap">Вид сверху</p>
+      <img src="../../img/1-11/v2/f-evening-1600.webp" alt="Мастер-спальня, к восточному окну и комоду, вечер" loading="lazy">
+      <p class="lb__cap">К восточному окну и комоду, вечер</p>
     </div>
   </div>
-  <p class="lb__count" aria-live="polite"><span>1</span> из 5</p>
+  <p class="lb__count" aria-live="polite"><span>1</span> из 4</p>
 </div>
 <footer class="foot">
   <div class="wrap">
-    <p>OVA-HOUSE, книга интерьеров. Версия 3, обновлена 13 сентября 2026.</p>
+    <p>OVA-HOUSE, книга интерьеров. Версия 4, обновлена 13 сентября 2026.</p>
   </div>
 </footer>
-<script src="../../static/app.js?v=202609131808"></script></body>
+<script src="../../static/app.js?v=202609131816"></script></body>
 </html>
