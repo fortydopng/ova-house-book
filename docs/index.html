@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="static/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="static/fonts/cormorant-560.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="static/style.css?v=202609131839">
+<link rel="stylesheet" href="static/style.css?v=202609131921">
 </head>
 <body class="home">
 <header class="hero">
@@ -33,9 +33,17 @@
   <section class="section">
     <div class="wrap">
       <h2>Помещения</h2>
-      <p class="lead">Визуализировано помещений: 3 из 13.</p>
+      <p class="lead">Визуализировано помещений: 4 из 13.</p>
 
       <div class="features">
+        <a class="feature" href="rooms/1-08/">
+          <img src="img/1-08/v1/b-day-900.webp" srcset="img/1-08/v1/b-day-900.webp 900w, img/1-08/v1/b-day-1600.webp 1600w" sizes="(min-width: 760px) 50vw, 100vw" alt="Кухня-гостиная, из гостиной к кухне и полуострову" loading="lazy">
+          <span class="feature__meta">
+            <span class="feature__name"><span class="feature__code">1.08</span>Кухня-гостиная</span>
+            <span class="feature__area">50,73 м²</span>
+          </span>
+          <span class="feature__status">На рассмотрении. Версия 1, 13 сентября 2026</span>
+        </a>
         <a class="feature" href="rooms/1-10/">
           <img src="img/1-10/v1/c-day-900.webp" srcset="img/1-10/v1/c-day-900.webp 900w, img/1-10/v1/c-day-1600.webp 1600w" sizes="(min-width: 760px) 50vw, 100vw" alt="Гардеробная при мастер-спальне, шкафы, дверь в санузел и люстра" loading="lazy">
           <span class="feature__meta">
@@ -95,9 +103,9 @@
         </li>
         <li>
           <span class="expl__code">1.08</span>
-          <span class="expl__name">Кухня-гостиная</span>
+          <a class="expl__name" href="rooms/1-08/">Кухня-гостиная</a>
           <span class="expl__area">50,73 м²</span>
-        </li>
+<span class="expl__status is-review">На рассмотрении</span>        </li>
         <li>
           <span class="expl__code">1.09</span>
           <span class="expl__name">Кладовая</span>
@@ -138,12 +146,12 @@
       <div class="plan-frame">
       <div class="plan">
         <img src="img/plan/house.png" alt="План первого этажа с расстановкой мебели" loading="lazy">
-        <a class="plan__hot" href="rooms/1-10/" aria-label="1.10 Гардеробная при мастер-спальне"
-           style="left:82.4%;top:51.9%;width:16.6%;height:15.0%"></a>
-        <a class="plan__hot" href="rooms/1-11/" aria-label="1.11 Мастер-спальня"
-           style="left:75.3%;top:23.5%;width:23.3%;height:27.3%"></a>
-        <a class="plan__hot" href="rooms/1-12/" aria-label="1.12 Санузел при мастер-спальне"
-           style="left:82.4%;top:67.8%;width:16.6%;height:13.6%"></a>
+        <svg class="plan__overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="false">
+          <a href="rooms/1-08/" aria-label="1.08 Кухня-гостиная"><polygon points="3.5,20.9 75.3,20.9 75.3,50.7 31.0,50.7 31.0,43.0 3.5,43.0" vector-effect="non-scaling-stroke"><title>1.08 Кухня-гостиная</title></polygon></a>
+          <a href="rooms/1-10/" aria-label="1.10 Гардеробная при мастер-спальне"><polygon points="82.4,51.9 99.0,51.9 99.0,66.9 82.4,66.9" vector-effect="non-scaling-stroke"><title>1.10 Гардеробная при мастер-спальне</title></polygon></a>
+          <a href="rooms/1-11/" aria-label="1.11 Мастер-спальня"><polygon points="75.3,23.5 98.6,23.5 98.6,50.8 75.3,50.8" vector-effect="non-scaling-stroke"><title>1.11 Мастер-спальня</title></polygon></a>
+          <a href="rooms/1-12/" aria-label="1.12 Санузел при мастер-спальне"><polygon points="82.4,67.8 99.0,67.8 99.0,81.39999999999999 82.4,81.39999999999999" vector-effect="non-scaling-stroke"><title>1.12 Санузел при мастер-спальне</title></polygon></a>
+        </svg>
       </div>
       </div>
       <p class="caption">Выделены помещения, по которым есть визуализация. Нажмите на помещение, чтобы открыть его.</p>
@@ -160,7 +168,7 @@
 </main>
 <footer class="foot">
   <div class="wrap">
-    <p>OVA-HOUSE, книга интерьеров. Версия 5, обновлена 13 сентября 2026.</p>
+    <p>OVA-HOUSE, книга интерьеров. Версия 6, обновлена 13 сентября 2026.</p>
   </div>
 </footer>
 </body>

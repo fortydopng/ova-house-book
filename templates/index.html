@@ -54,10 +54,11 @@
       <div class="plan-frame">
       <div class="plan">
         <img src="{{ root }}img/plan/house.png" alt="План первого этажа с расстановкой мебели" loading="lazy">
-        {% for r in book.visualized if r.plan_box %}
-        <a class="plan__hot" href="{{ root }}{{ r.url }}" aria-label="{{ r.code }} {{ r.name }}"
-           style="left:{{ r.plan_box.left }}%;top:{{ r.plan_box.top }}%;width:{{ r.plan_box.width }}%;height:{{ r.plan_box.height }}%"></a>
-        {% endfor %}
+        <svg class="plan__overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="false">
+          {% for r in book.visualized if r.plan_points %}
+          <a href="{{ root }}{{ r.url }}" aria-label="{{ r.code }} {{ r.name }}"><polygon points="{{ r.plan_points }}" vector-effect="non-scaling-stroke"><title>{{ r.code }} {{ r.name }}</title></polygon></a>
+          {% endfor %}
+        </svg>
       </div>
       </div>
       <p class="caption">Выделены помещения, по которым есть визуализация. Нажмите на помещение, чтобы открыть его.</p>

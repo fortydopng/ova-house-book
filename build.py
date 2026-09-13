@@ -62,6 +62,13 @@ def prepare(book: dict) -> dict:
             cur["slides"] = slides
             r["cover"] = cur["images"][0]
             r["url"] = f"rooms/{r['slug']}/"
+        # plan overlay: polygon points in percent (from plan_poly, or derived from plan_box)
+        if r.get("plan_poly"):
+            r["plan_points"] = " ".join(f"{x},{y}" for x, y in r["plan_poly"])
+        elif r.get("plan_box"):
+            b = r["plan_box"]
+            l, t, w, h = b["left"], b["top"], b["width"], b["height"]
+            r["plan_points"] = f"{l},{t} {l+w},{t} {l+w},{t+h} {l},{t+h}"
         # composition: status labels (group-level default, item-level override)
         labels = book.get("item_statuses", {})
         for g in r.get("composition") or []:
