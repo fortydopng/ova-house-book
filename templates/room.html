@@ -36,11 +36,48 @@
   </section>
   {% endif %}
 
-  {% if room.plan_fragment %}
+  {% if room.composition %}
+  <section class="section section--comp">
+    <div class="wrap wrap--narrow">
+      <h2>Что здесь нарисовано</h2>
+      {% if room.composition_intro %}<p class="lead">{{ room.composition_intro }}</p>{% endif %}
+      {% for g in room.composition %}
+      <h3>{{ g.group }}</h3>
+      {% if g.note %}<p class="comp__note">{{ g.note }}</p>{% endif %}
+      <ul class="comp">
+        {% for it in g["items"] %}
+        <li>
+          <span class="comp__role">{{ it.role }}</span>
+          <span class="comp__body">
+            <span class="comp__product">{{ it.product }}</span>
+            {% if it.size %}<span class="comp__size">{{ it.size }}</span>{% endif %}
+            {% if it.url %}<a class="comp__link" href="{{ it.url }}" target="_blank" rel="noopener">{{ it.link_text or "Страница производителя" }}</a>{% endif %}
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endfor %}
+      {% if room.accessories_note %}<p class="comp__note comp__note--end">{{ room.accessories_note }}</p>{% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if room.plan_fragment or room.facts %}
   <section class="section section--fragment">
     <div class="wrap wrap--narrow">
-      <h2>На плане</h2>
-      <img class="fragment" src="{{ root }}{{ room.plan_fragment }}" alt="Фрагмент плана: {{ room.name }}" loading="lazy">
+      <h2>По проекту</h2>
+      <div class="passport">
+        {% if room.plan_fragment %}
+        <img class="fragment" src="{{ root }}{{ room.plan_fragment }}" alt="Фрагмент плана: {{ room.name }}" loading="lazy">
+        {% endif %}
+        {% if room.facts %}
+        <ul class="facts">
+          {% for f in room.facts %}
+          <li>{{ f }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
     </div>
   </section>
   {% endif %}
