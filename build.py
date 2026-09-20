@@ -103,6 +103,10 @@ def prepare_references(refs: dict) -> dict:
     slides, seen = [], set()
     for g in refs["groups"]:
         g["records"] = []
+        if g.get("figure"):
+            fb = f"img/refs/v{refs['img_version']}/{g['figure']['id']}"
+            g["figure"]["src"] = f"{fb}-1600.webp"
+            g["figure"]["src_small"] = f"{fb}-900.webp"
         for rid in g["items"]:
             it = by_id[rid]
             if rid in seen:

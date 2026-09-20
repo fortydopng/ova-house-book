@@ -48,6 +48,13 @@
   <section class="section refs__group" id="{{ g.id }}" data-group="{{ g.id }}">
     <div class="wrap wrap--grid">
       <h2>{{ g.name }}<span class="refs__count">{{ g.records|length }}</span></h2>
+      {% if g.note %}<p class="refs__note">{{ g.note }}</p>{% endif %}
+      {% if g.figure %}
+      <figure class="refs__figure">
+        <img src="{{ root }}{{ g.figure.src_small }}" srcset="{{ root }}{{ g.figure.src_small }} 900w, {{ root }}{{ g.figure.src }} 1600w" sizes="(min-width: 1160px) 1120px, 100vw" width="{{ g.figure.width }}" height="{{ g.figure.height }}" alt="{{ g.figure.caption }}" loading="lazy">
+        <figcaption>{{ g.figure.caption }}</figcaption>
+      </figure>
+      {% endif %}
       <div class="refs__grid">
         {% for it in g.records %}
         <figure class="ref" id="{{ it.anchor }}">

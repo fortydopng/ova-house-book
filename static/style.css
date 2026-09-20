@@ -392,6 +392,11 @@ body.lb-open { overflow: hidden; }
 
 .refs__group { scroll-margin-top: 58px; }
 .refs__group h2 { padding: 0 var(--pad); }
+.refs__note { color: var(--taupe); font-size: 15px; line-height: 1.5; max-width: 62ch; margin: -6px 0 22px; padding: 0 var(--pad); }
+.refs__figure { margin: 0 0 30px; }
+.refs__figure img { width: 100%; height: auto; display: block; background: var(--sand); }
+.refs__figure figcaption { font-size: 14px; color: var(--taupe); padding: 8px var(--pad) 0; }
+.ref__status.is-pick { color: var(--olive); }
 .refs__count { color: var(--taupe); font-size: .5em; margin-left: .45em; vertical-align: .35em; font-variant-numeric: tabular-nums; }
 .refs .wrap--grid { padding-left: 0; padding-right: 0; }
 .refs__grid { display: grid; grid-template-columns: 1fr; gap: 36px; }
@@ -445,6 +450,9 @@ body.lb-open { overflow: hidden; }
   .strip { margin: 0; padding: 0; }
   .strip img { height: 220px; }
   .refs__group h2 { padding: 0; }
+  .refs__note { padding: 0; }
+  .refs__figure { margin-bottom: 40px; }
+  .refs__figure figcaption { padding-left: 0; padding-right: 0; }
   .refs .wrap--grid { padding-left: var(--pad); padding-right: var(--pad); }
   .refs__grid { display: block; columns: 2; column-gap: 32px; }
   .ref { break-inside: avoid; margin-bottom: 40px; }
