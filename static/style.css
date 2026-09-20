@@ -408,8 +408,23 @@ body.lb-open { overflow: hidden; }
   color: var(--taupe);
   font-variant-numeric: lining-nums;
 }
+.ref__head { display: flex; align-items: baseline; gap: 12px; }
+.ref__status { font-size: 13px; color: var(--olive); white-space: nowrap; }
+.ref__status.is-main { color: var(--paper); background: var(--olive); padding: 2px 8px; border-radius: 999px; }
+.ref__status.is-check, .ref__status.is-open { color: var(--taupe); }
 .ref__title { display: block; margin-top: 5px; }
 .ref__desc { display: block; font-size: 14px; color: var(--taupe); margin-top: 4px; max-width: 62ch; }
+.ref__take, .ref__avoid, .ref__where, .ref__ask { display: block; font-size: 15px; line-height: 1.45; margin-top: 8px; max-width: 62ch; }
+.ref__take { color: var(--ink); }
+.ref__avoid, .ref__where { color: var(--taupe); }
+.ref__ask { color: var(--olive); }
+.ref__label { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--taupe); margin-bottom: 1px; }
+.ref__take .ref__label { color: var(--olive); }
+.guide { display: grid; grid-template-columns: 1fr; gap: 20px 32px; }
+.guide h3 { font-family: var(--serif); font-weight: 560; font-size: 25px; line-height: 1.1; margin: 0 0 6px; }
+.guide ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--sand); }
+.guide li { padding: 9px 0; border-bottom: 1px solid var(--sand); font-size: 15px; line-height: 1.45; }
+.section--guide { padding-top: 8px; }
 .ref__src {
   display: inline-block;
   margin-top: 6px;
@@ -424,6 +439,7 @@ body.lb-open { overflow: hidden; }
 .refs .lb__cap { opacity: .9; }
 
 @media (min-width: 760px) {
+  .guide { grid-template-columns: repeat(3, 1fr); }
   .strip { margin: 0; padding: 0; }
   .strip img { height: 220px; }
   .refs__group h2 { padding: 0; }

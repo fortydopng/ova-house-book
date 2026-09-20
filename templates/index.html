@@ -69,7 +69,7 @@
   <section class="section section--refs">
     <div class="wrap">
       <h2>{{ refs.title }}</h2>
-      <p class="lead">{{ refs.subtitle }} — {{ refs.count_note }}, по которым обсуждается характер интерьеров.</p>
+      <p class="lead">{{ refs.home_lead or refs.subtitle }}</p>
       <a class="strip" href="{{ root }}{{ refs.url }}" aria-label="Открыть референсы">
         {% for it in refs.home_items %}
         <img src="{{ root }}{{ it.src_small }}" width="{{ it.width }}" height="{{ it.height }}" alt="{{ it.id }}, {{ it.title|lower }}" loading="lazy">

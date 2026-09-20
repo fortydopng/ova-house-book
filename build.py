@@ -90,6 +90,7 @@ def prepare(book: dict) -> dict:
 def prepare_references(refs: dict) -> dict:
     """References page (content/references.yaml): image paths, group order, lightbox slides."""
     refs["date_text"] = ru_date(refs["date"])
+    labels = refs.get("statuses", {})
     by_id = {it["id"]: it for it in refs["items"]}
     for it in refs["items"]:
         stem = it["id"].lower()                      # REF-014 -> ref-014
@@ -97,6 +98,8 @@ def prepare_references(refs: dict) -> dict:
         it["anchor"] = stem
         it["src"] = f"{base}-1600.webp"
         it["src_small"] = f"{base}-900.webp"
+        it["excluded"] = it.get("status") == "excluded"
+        it["status_text"] = "" if it["excluded"] else labels.get(it.get("status"), "")
     slides, seen = [], set()
     for g in refs["groups"]:
         g["records"] = []
@@ -104,14 +107,18 @@ def prepare_references(refs: dict) -> dict:
             it = by_id[rid]
             if rid in seen:
                 raise SystemExit(f"references.yaml: {rid} listed in more than one group")
+            if it["excluded"]:
+                raise SystemExit(f"references.yaml: {rid} is excluded but listed in group {g['id']}")
             seen.add(rid)
             it["group"] = g["id"]
             it["slide"] = len(slides)               # lightbox order = page order
             slides.append(it)
             g["records"].append(it)
-    missing = [i for i in by_id if i not in seen]
+    missing = [i for i, it in by_id.items() if i not in seen and not it["excluded"]]
     if missing:
         raise SystemExit(f"references.yaml: not in any group: {', '.join(missing)}")
+    refs["kept"] = [it for it in refs["items"] if not it["excluded"]]
+    refs["excluded"] = [it for it in refs["items"] if it["excluded"]]
     refs["slides"] = slides
     refs["home_items"] = [by_id[i] for i in refs.get("home_strip", [])]
     refs["url"] = f"{refs['slug']}/"

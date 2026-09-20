@@ -16,6 +16,24 @@
     </div>
   </header>
 
+  {% if refs.guidelines %}
+  <section class="section section--guide" id="guide">
+    <div class="wrap">
+      <h2>Общие ориентиры</h2>
+      <div class="guide">
+        {% for g in refs.guidelines %}
+        <div class="guide__col">
+          <h3>{{ g.name }}</h3>
+          <ul>
+            {% for line in g["items"] %}<li>{{ line }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
   <nav class="refnav" aria-label="Разделы подборки">
     <div class="wrap">
       <ul>
@@ -37,9 +55,12 @@
             <img src="{{ root }}{{ it.src_small }}" srcset="{{ root }}{{ it.src_small }} 900w, {{ root }}{{ it.src }} 1600w" sizes="(min-width: 1100px) 360px, (min-width: 760px) 50vw, 100vw" width="{{ it.width }}" height="{{ it.height }}" alt="{{ it.id }}, {{ it.title|lower }}" loading="lazy">
           </a>
           <figcaption>
-            <span class="ref__id">{{ it.id }}</span>
+            <span class="ref__head"><span class="ref__id">{{ it.id }}</span>{% if it.status_text %}<span class="ref__status is-{{ it.status }}">{{ it.status_text }}</span>{% endif %}</span>
             <span class="ref__title">{{ it.title }}</span>
-            {% if it.description %}<span class="ref__desc">{{ it.description }}</span>{% endif %}
+            {% if it.take %}<span class="ref__take"><span class="ref__label">Интересно</span>{{ it.take }}</span>{% endif %}
+            {% if it.avoid %}<span class="ref__avoid"><span class="ref__label">Не переносить</span>{{ it.avoid }}</span>{% endif %}
+            {% if it.where %}<span class="ref__where"><span class="ref__label">Где</span>{{ it.where }}</span>{% endif %}
+            {% if it.ask %}<span class="ref__ask"><span class="ref__label">Уточнить</span>{{ it.ask }}</span>{% endif %}
             {% if it.pin %}<a class="ref__src" href="{{ it.pin }}" target="_blank" rel="noopener">Исходная публикация</a>{% endif %}
           </figcaption>
         </figure>
