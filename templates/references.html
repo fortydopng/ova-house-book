@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}{{ refs.title }} — {{ site.title }}{% endblock %}
+{% block ogtitle %}{{ refs.title }} — {{ site.title }}{% endblock %}
+{% block bodyclass %}refs{% endblock %}
+{% block body %}
+<main>
+  <header class="room__head refs__head">
+    <div class="wrap">
+      <nav class="crumbs"><a href="{{ root }}">{{ site.title }}</a></nav>
+      <p class="room__code">{{ refs.subtitle }}</p>
+      <h1>{{ refs.title }}</h1>
+      <p class="room__meta">{{ refs.count_note }}. Версия {{ refs.version }}, {{ refs.date_text }}.</p>
+      {% for para in refs.intro.strip().split('\n\n') %}
+      <p class="room__note">{{ para.replace('\n', ' ') }}</p>
+      {% endfor %}
+    </div>
+  </header>
+
+  <nav class="refnav" aria-label="Разделы подборки">
+    <div class="wrap">
+      <ul>
+        {% for g in refs.groups %}
+        <li><a href="#{{ g.id }}" data-group="{{ g.id }}">{{ g.name }}<span class="refnav__n">{{ g.records|length }}</span></a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+
+  {% for g in refs.groups %}
+  <section class="section refs__group" id="{{ g.id }}" data-group="{{ g.id }}">
+    <div class="wrap wrap--grid">
+      <h2>{{ g.name }}<span class="refs__count">{{ g.records|length }}</span></h2>
+      <div class="refs__grid">
+        {% for it in g.records %}
+        <figure class="ref" id="{{ it.anchor }}">
+          <a class="gallery__link" href="{{ root }}{{ it.src }}" data-index="{{ it.slide }}">
+            <img src="{{ root }}{{ it.src_small }}" srcset="{{ root }}{{ it.src_small }} 900w, {{ root }}{{ it.src }} 1600w" sizes="(min-width: 1100px) 360px, (min-width: 760px) 50vw, 100vw" width="{{ it.width }}" height="{{ it.height }}" alt="{{ it.id }}, {{ it.title|lower }}" loading="lazy">
+          </a>
+          <figcaption>
+            <span class="ref__id">{{ it.id }}</span>
+            <span class="ref__title">{{ it.title }}</span>
+            {% if it.description %}<span class="ref__desc">{{ it.description }}</span>{% endif %}
+            {% if it.pin %}<a class="ref__src" href="{{ it.pin }}" target="_blank" rel="noopener">Исходная публикация</a>{% endif %}
+          </figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endfor %}
+
+  <section class="section section--nav">
+    <div class="wrap wrap--narrow">
+      <p class="caption">{{ refs.source_note }}</p>
+      <a class="back" href="{{ root }}">Все помещения</a>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" hidden aria-modal="true" role="dialog" aria-label="Просмотр изображений">
+  <button class="lb__close" type="button" aria-label="Закрыть">Закрыть</button>
+  <div class="lb__strip">
+    {% for sl in refs.slides %}
+    <div class="lb__slide" data-anchor="{{ sl.anchor }}">
+      <img src="{{ root }}{{ sl.src }}" alt="{{ sl.id }}, {{ sl.title|lower }}" loading="lazy">
+      <p class="lb__cap"><span class="lb__id">{{ sl.id }}</span>{{ sl.title }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="lb__count" aria-live="polite"><span>1</span> из {{ refs.slides|length }}</p>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ root }}static/app.js?v={{ build_id }}"></script>{% endblock %}

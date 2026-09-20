@@ -50,14 +50,24 @@
     lastFocus = document.activeElement;
     lb.hidden = false;
     document.body.classList.add('lb-open');
+    openedAt = i;
     goTo(i, true);
     closeBtn.focus();
   }
 
+  var openedAt = 0;
+
   function close() {
+    var i = current();
     lb.hidden = true;
     document.body.classList.remove('lb-open');
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
+    // if the viewer moved to another image, bring the page to that image
+    var target = slides[i] && slides[i].getAttribute('data-anchor');
+    if (i !== openedAt && target && document.getElementById(target)) {
+      document.getElementById(target).scrollIntoView({ block: 'start' });
+    } else if (lastFocus && lastFocus.focus) {
+      lastFocus.focus();
+    }
   }
 
   Array.prototype.forEach.call(links, function (a) {
@@ -83,4 +93,38 @@
   window.addEventListener('resize', function () {
     if (!lb.hidden) goTo(current(), true);
   });
+})();
+
+(function () {
+  // References page: highlight the section in view in the sticky group nav
+  var nav = document.querySelector('.refnav');
+  if (!nav || !('IntersectionObserver' in window)) return;
+  var links = {};
+  Array.prototype.forEach.call(nav.querySelectorAll('a[data-group]'), function (a) {
+    links[a.getAttribute('data-group')] = a;
+  });
+  var visible = {};
+  function update() {
+    var best = null, bestTop = Infinity;
+    for (var id in visible) {
+      if (visible[id] && visible[id] < bestTop) { best = id; bestTop = visible[id]; }
+    }
+    if (!best) return;
+    for (var k in links) {
+      var on = k === best;
+      links[k].classList.toggle('is-on', on);
+      if (on) links[k].setAttribute('aria-current', 'true'); else links[k].removeAttribute('aria-current');
+    }
+    var a = links[best], ul = a.parentNode.parentNode;
+    var left = a.offsetLeft - (ul.clientWidth - a.offsetWidth) / 2;
+    ul.scrollTo({ left: left, behavior: 'smooth' });
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var id = e.target.getAttribute('data-group');
+      visible[id] = e.isIntersecting ? Math.abs(e.boundingClientRect.top) + 1 : 0;
+    });
+    update();
+  }, { rootMargin: '-56px 0px -55% 0px', threshold: 0 });
+  Array.prototype.forEach.call(document.querySelectorAll('.refs__group'), function (sec) { io.observe(sec); });
 })();

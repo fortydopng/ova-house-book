@@ -3,7 +3,8 @@
 
     python build.py
 
-Reads content/book.yaml, renders templates/*.html, copies static/ assets.
+Reads content/book.yaml (rooms) and content/references.yaml (style references),
+renders templates/*.html, copies static/ assets.
 Images are produced separately by ingest.py and live in docs/img/.
 """
 import datetime as dt
@@ -86,8 +87,44 @@ def prepare(book: dict) -> dict:
     return book
 
 
+def prepare_references(refs: dict) -> dict:
+    """References page (content/references.yaml): image paths, group order, lightbox slides."""
+    refs["date_text"] = ru_date(refs["date"])
+    by_id = {it["id"]: it for it in refs["items"]}
+    for it in refs["items"]:
+        stem = it["id"].lower()                      # REF-014 -> ref-014
+        base = f"img/refs/v{refs['img_version']}/{stem}"
+        it["anchor"] = stem
+        it["src"] = f"{base}-1600.webp"
+        it["src_small"] = f"{base}-900.webp"
+    slides, seen = [], set()
+    for g in refs["groups"]:
+        g["records"] = []
+        for rid in g["items"]:
+            it = by_id[rid]
+            if rid in seen:
+                raise SystemExit(f"references.yaml: {rid} listed in more than one group")
+            seen.add(rid)
+            it["group"] = g["id"]
+            it["slide"] = len(slides)               # lightbox order = page order
+            slides.append(it)
+            g["records"].append(it)
+    missing = [i for i in by_id if i not in seen]
+    if missing:
+        raise SystemExit(f"references.yaml: not in any group: {', '.join(missing)}")
+    refs["slides"] = slides
+    refs["home_items"] = [by_id[i] for i in refs.get("home_strip", [])]
+    refs["url"] = f"{refs['slug']}/"
+    return refs
+
+
 def build() -> None:
     book = prepare(yaml.safe_load((ROOT / "content" / "book.yaml").read_text(encoding="utf-8")))
+    refs_path = ROOT / "content" / "references.yaml"
+    refs = None
+    if refs_path.exists():
+        refs = prepare_references(yaml.safe_load(refs_path.read_text(encoding="utf-8"))["references"])
+    book["refs"] = refs
     env = Environment(loader=FileSystemLoader(ROOT / "templates"),
                       autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
     build_id = dt.datetime.now().strftime("%Y%m%d%H%M")
@@ -100,8 +137,15 @@ def build() -> None:
 
     # pages
     (DOCS / "index.html").write_text(
-        env.get_template("index.html").render(book=book, site=book["site"], root="", build_id=build_id),
+        env.get_template("index.html").render(book=book, site=book["site"], refs=refs, root="", build_id=build_id),
         encoding="utf-8")
+    if refs:
+        d = DOCS / refs["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(
+            env.get_template("references.html").render(book=book, site=book["site"], refs=refs, root="../",
+                                                       build_id=build_id),
+            encoding="utf-8")
     for r in book["visualized"]:
         d = DOCS / "rooms" / r["slug"]
         d.mkdir(parents=True, exist_ok=True)
@@ -117,7 +161,8 @@ def build() -> None:
     # service files
     (DOCS / ".nojekyll").write_text("")
     (DOCS / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
-    print(f"built {len(book['visualized'])} room page(s) + index, build {build_id}")
+    extra = f" + references ({len(refs['slides'])} images)" if refs else ""
+    print(f"built {len(book['visualized'])} room page(s) + index{extra}, build {build_id}")
 
 
 if __name__ == "__main__":
