@@ -414,9 +414,11 @@ body.lb-open { overflow: hidden; }
 .ref__status.is-check, .ref__status.is-open { color: var(--taupe); }
 .ref__title { display: block; margin-top: 5px; }
 .ref__desc { display: block; font-size: 14px; color: var(--taupe); margin-top: 4px; max-width: 62ch; }
-.ref__take, .ref__avoid, .ref__where, .ref__ask { display: block; font-size: 15px; line-height: 1.45; margin-top: 8px; max-width: 62ch; }
+.ref__take, .ref__avoid, .ref__where, .ref__proposal, .ref__ask { display: block; font-size: 15px; line-height: 1.45; margin-top: 8px; max-width: 62ch; }
 .ref__take { color: var(--ink); }
 .ref__avoid, .ref__where { color: var(--taupe); }
+.ref__proposal { color: var(--ink); }
+.ref__proposal .ref__label { color: var(--olive); }
 .ref__ask { color: var(--olive); }
 .ref__label { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--taupe); margin-bottom: 1px; }
 .ref__take .ref__label { color: var(--olive); }
