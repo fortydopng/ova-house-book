@@ -65,6 +65,10 @@ def prepare(book: dict) -> dict:
                 db = f"img/{r['slug']}/v{cur['n']}/{d['id']}"
                 d["src"] = f"{db}-1600.webp"
                 d["src_small"] = f"{db}-900.webp"
+            for g in r.get("composition") or []:        # optional product thumbnails on composition items
+                for it in g["items"]:
+                    if it.get("image"):
+                        it["img_src"] = f"img/{r['slug']}/v{cur['n']}/{it['image']}-900.webp"
             r["cover"] = cur["images"][0]
             r["url"] = f"rooms/{r['slug']}/"
         # plan overlay: polygon points in percent (from plan_poly, or derived from plan_box)
@@ -133,6 +137,20 @@ def prepare_references(refs: dict) -> dict:
     return refs
 
 
+def attach_room_refs(book: dict, refs: dict | None) -> None:
+    """Resolve a room's `references` (REF-IDs + note) against the references page."""
+    by_id = {it["id"]: it for it in refs["items"]} if refs else {}
+    for r in book["rooms"]:
+        recs = []
+        for x in r.get("references") or []:
+            it = by_id.get(x["id"])
+            if not it or it.get("excluded"):
+                continue
+            recs.append({"id": it["id"], "title": it["title"], "anchor": it["anchor"],
+                         "src_small": it["src_small"], "note": x.get("note", "")})
+        r["ref_records"] = recs
+
+
 def build() -> None:
     book = prepare(yaml.safe_load((ROOT / "content" / "book.yaml").read_text(encoding="utf-8")))
     refs_path = ROOT / "content" / "references.yaml"
@@ -140,6 +158,7 @@ def build() -> None:
     if refs_path.exists():
         refs = prepare_references(yaml.safe_load(refs_path.read_text(encoding="utf-8"))["references"])
     book["refs"] = refs
+    attach_room_refs(book, refs)
     env = Environment(loader=FileSystemLoader(ROOT / "templates"),
                       autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
     build_id = dt.datetime.now().strftime("%Y%m%d%H%M")

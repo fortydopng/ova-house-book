@@ -65,20 +65,62 @@
       {% for g in room.composition %}
       <h3>{{ g.group }}</h3>
       {% if g.note or g.status_text %}<p class="comp__note">{% if g.status_text %}{{ g.status_text }}{% if g.note %} — {{ g.note|lower }}{% endif %}{% else %}{{ g.note }}{% endif %}</p>{% endif %}
+      {% if g.intro %}<p class="comp__intro">{{ g.intro }}</p>{% endif %}
       <ul class="comp">
         {% for it in g["items"] %}
         <li>
           <span class="comp__role">{{ it.role }}</span>
           <span class="comp__body">
-            <span class="comp__product">{{ it.product }}</span>{% if it.status_text %}<span class="comp__status is-{{ it.status }}">{{ it.status_text }}</span>{% endif %}
-            {% if it.size %}<span class="comp__size">{{ it.size }}</span>{% endif %}
-            {% if it.url %}<a class="comp__link" href="{{ it.url }}" target="_blank" rel="noopener">{{ it.link_text or "Страница производителя" }}</a>{% endif %}
+            {% if it.img_src %}<img class="comp__img" src="{{ root }}{{ it.img_src }}" alt="{{ it.product }}" loading="lazy">{% endif %}
+            <span class="comp__text">
+              <span class="comp__product">{{ it.product }}</span>{% if it.status_text %}<span class="comp__status is-{{ it.status }}">{{ it.status_text }}</span>{% endif %}
+              {% if it.size %}<span class="comp__size">{{ it.size }}</span>{% endif %}
+              {% if it.url %}<a class="comp__link" href="{{ it.url }}" target="_blank" rel="noopener">{{ it.link_text or "Страница производителя" }}</a>{% endif %}
+            </span>
           </span>
         </li>
         {% endfor %}
       </ul>
       {% endfor %}
       {% if room.accessories_note %}<p class="comp__note comp__note--end">{{ room.accessories_note }}</p>{% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if room.details %}
+  <section class="section section--details">
+    <div class="wrap wrap--narrow">
+      <h2>{{ room.details_title or "Подробнее" }}</h2>
+      {% for d in room.details %}
+      <h3>{{ d.title }}</h3>
+      {% if d.text %}<p>{{ d.text }}</p>{% endif %}
+      {% if d.get("items") %}
+      <ul class="facts">
+        {% for x in d.get("items") %}<li>{{ x }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if room.ref_records %}
+  <section class="section section--roomrefs">
+    <div class="wrap wrap--narrow">
+      <h2>Из референсов</h2>
+      {% if room.references_intro %}<p class="lead">{{ room.references_intro }}</p>{% endif %}
+      <ul class="reflist">
+        {% for x in room.ref_records %}
+        <li>
+          <a class="reflist__pic" href="{{ root }}references/#{{ x.anchor }}"><img src="{{ root }}{{ x.src_small }}" alt="{{ x.id }}, {{ x.title|lower }}" loading="lazy"></a>
+          <span class="reflist__body">
+            <a class="reflist__id" href="{{ root }}references/#{{ x.anchor }}">{{ x.id }}</a>
+            <span class="reflist__title">{{ x.title }}</span>
+            {% if x.note %}<span class="reflist__note">{{ x.note }}</span>{% endif %}
+          </span>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </section>
   {% endif %}

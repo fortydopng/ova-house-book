@@ -216,7 +216,10 @@ a.expl__name:hover { text-decoration-color: var(--ink); }
 .comp { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--sand); }
 .comp li { padding: 12px 0; border-bottom: 1px solid var(--sand); }
 .comp__role { display: block; font-size: 14px; color: var(--taupe); margin-bottom: 2px; }
-.comp__body { display: block; }
+.comp__body { display: flex; gap: 16px; align-items: flex-start; }
+.comp__text { display: block; flex: 1; min-width: 0; }
+.comp__img { flex: none; width: 88px; height: 88px; object-fit: cover; background: var(--sand); border: 1px solid var(--sand); }
+.comp__intro { font-size: 16px; line-height: 1.55; margin: 0 0 14px; max-width: 62ch; }
 .comp__product { display: block; }
 .comp__size { display: block; font-size: 15px; color: var(--taupe); font-variant-numeric: tabular-nums; }
 .comp__link {
@@ -468,3 +471,19 @@ body.lb-open { overflow: hidden; }
 .drawing { margin: 28px 0 0; }
 .drawing img { width: 100%; height: auto; display: block; background: var(--sand); }
 .drawing figcaption { font-size: 14px; color: var(--taupe); padding-top: 8px; }
+
+/* Room: details and references sections */
+.section--details h3, .section--roomrefs h3 { margin-top: 26px; }
+.section--details p { max-width: 62ch; }
+.reflist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 18px 28px; }
+.reflist li { display: flex; gap: 16px; align-items: flex-start; }
+.reflist__pic { flex: none; display: block; }
+.reflist__pic img { width: 96px; height: 96px; object-fit: cover; display: block; background: var(--sand); }
+.reflist__body { display: block; min-width: 0; }
+.reflist__id { display: inline-block; font-family: var(--serif); font-weight: 560; font-size: 20px; line-height: 1; color: var(--taupe); text-decoration: none; margin-bottom: 4px; }
+.reflist__id:hover { color: var(--ink); }
+.reflist__title { display: block; }
+.reflist__note { display: block; font-size: 14px; color: var(--taupe); margin-top: 3px; }
+@media (min-width: 760px) {
+  .reflist { grid-template-columns: 1fr 1fr; }
+}
