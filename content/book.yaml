@@ -6,8 +6,8 @@ site:
   subtitle: Книга интерьеров
   description: Визуализации интерьеров частного дома, по помещениям, в актуальных версиях.
   base_url: https://fortydopng.github.io/ova-house-book/
-  version: 9
-  updated: 2026-09-20
+  version: 10
+  updated: 2026-09-24
   hero:
     room: "1.11"
     image: e-day
@@ -86,125 +86,165 @@ rooms:
     status: review
     plan_poly: [[3.5, 20.9], [75.3, 20.9], [75.3, 50.7], [31.0, 50.7], [31.0, 43.0], [3.5, 43.0]]
     plan_fragment: img/plan/1-08.png
-    # Источник: OVA-HOUSE / 21_Pro_Render / 1.08_Кухня-гостиная — паспорт v01 и ведомость v01
-    # от 13.09.2026 (M08 / S01). Кадры: OVA_R108_{A,B,C}_M08_S01_{DAY,NIGHT}_v0x.
+    # Версия 2 (23.09.2026): комплект T01 v05 / S06 — паспорт, ведомость и дизайн-ревью от 23.09.2026,
+    # кадры OVA_R108_T01_S06_{A,B,C,D,BAR_C03}_{DAY,EVENING}_v05 и TOP_DAY; план — TOP_S06_ORTHO_DAY_Control.
+    # Версия 1 (13.09.2026): паспорт v01 / ведомость v01 (M08 / S01), кадры OVA_R108_{A,B,C}_M08_S01_{DAY,NIGHT}.
     intent: |
       Единое пространство кухни, столовой и гостиной под высоким потолком с открытой балкой.
-      Кухня в тёмном орехе с вертикальным рифлением и светлым камнем столешниц, полуостров
-      с барными местами и подвесами над ним. В гостиной — диван на дубовом основании перед
-      камином с телевизором, круглый стол с креслами у панорамного остекления на террасу.
-      Вечером включаются встроенный свет, три кольца над столом, подвесы над полуостровом
-      и скрытая подсветка рабочей поверхности и цоколя кухни.
+      Молочные фасады кухни и мягкой мебели, тёплый орех верхних шкафов и бара, светлый камень
+      пола, столешниц и камина, бронзовые детали. Стены гостиной объединяет непрерывная светлая
+      лесная роспись; камин — самостоятельный каменный объём с телевизором рядом; над гостиной —
+      три каскадных светильника. Мягкая группа на шесть мест: большой диван перед телевизором
+      и второй диван у окна. Высокое окно получает раскрытые светлые портьеры и тюль, кухонное
+      окно — три поднятые рулонные шторы. Вечером включаются каскады, подвесы над полуостровом,
+      витрина бара и скрытая подсветка кухни.
     facts:
       - 50,73 м², Г-образный контур; кухня у западной стены, гостиная у остекления и камина
       - Потолок из двух скатов, высота от 3,95 до 5,43 м; открытая стальная балка
-      - Панорамное остекление в сторону террасы и сада; проём в холл 1.04
+      - Панорамное остекление в сторону террасы и сада; высокое окно гостиной около 3500 × 4850 мм, кухонное окно 3000 × 1750 мм в три секции
+      - Проём в холл 1.04 — 2700 × 2600 мм, прямоугольный, без створок
       - Камин с коробом до потолка и собственным дымоходом; телевизор 98 дюймов
-      - "Освещение по проекту: 27 встроенных светильников, 4 подвеса над полуостровом, 3 кольца над столом"
-    composition_intro: "Рядом с каждым предметом — что это в жизни: изделие производителя, вещь на заказ или позиция, которая ещё подбирается."
+      - "Освещение по проекту: 27 встроенных светильников, 4 подвеса над полуостровом и 3 подвеса в гостиной"
+    drawings:
+      - id: plan-layout
+        caption: Расстановка мебели — план по модели, без потолка
+    composition_intro: "Рядом с каждым предметом — что это в жизни: изделие производителя, вещь на заказ или позиция, которая ещё подбирается. Новые позиции этой версии предложены для обсуждения и не утверждены к заказу."
     composition:
       - group: Кухня
         status: custom
-        note: изготавливается по чертежам, техника подбирается
+        note: фасады по образцу, техника подбирается
         items:
-          - role: Кухонный ряд
-            product: Нижние модули по 600 мм и пенал холодильника; тёмный орех с вертикальным рифлением, светлая каменная столешница
-          - role: Полуостров
-            product: Со стороны гостиной — четыре барных места
-            size: 2400 × 1000 × 900 мм
-          - role: Навесные шкафы
-            product: Четыре, тёмный орех; референс Modulnova Vertical
-            url: https://www.modulnova.it/en/product/vertical/
-            link_text: Референс
-          - role: Вытяжка
-            product: Miele DAS 2620, встроена в шкаф над плитой
+          - role: Нижние фасады
+            product: Заказная молочная сатиновая отделка; лак подбирается по физическому образцу, код не назначен
+          - role: Верх кухни и ореховые плоскости
+            product: Шпон ALPI Xilo Walnut Striped 10.12, матовая защитная отделка
             status: product
-            size: 596 × 273 мм
-            url: https://www.miele.co.uk/product/11878170/slimline-cooker-hood-das-2620-stainless-steel
-          - role: Техника
-            product: Холодильник, духовой шкаф, индукционная панель, посудомоечная машина, чёрная мойка и смеситель
+            url: https://www.alpi.it/en/products/collezioni%2Bwood/chocolate/alpi%2Bxilo%2Bwalnut%2Bstriped/169
+          - role: Столешницы
+            product: Atlas Plan Calacatta Delicato Silk, плита 12 мм
+            status: product
+            url: https://www.atlasplan.com/it/grandi-lastre-e-piastrelle-in-gres-porcellanato/calacatta-delicato/?10=32&15=50&3=4
+          - role: Холодильник
+            product: Fisher & Paykel RS90A3, встроенный French Door — две верхние створки и нижний ящик; заказные молочные панели и бронзовые ручки
+            status: product
+            size: 896 × 610 × 1798 мм
+            url: https://www.fisherpaykel.com/eu/cooling/integrated/90cm-series-7-integrated-french-door-refrigerator-freezer--rs90a3-26655.html?fit=Built-In
+          - role: Прочая техника
+            product: Варочная панель, духовой шкаф, мойка и смеситель
             status: tbd
-      - group: Столовая и бар
-        status: tbd
-        note: образ и размеры зафиксированы, конкретные изделия выбираются
+          - role: Полуостров
+            product: Со стороны гостиной — четыре барных места; стулья не выбраны
+            status: tbd
+          - role: Подсветка кухни
+            product: Лента 24 В, 3000 K в алюминиевом профиле, семь участков около 8,1 м; артикул не выбран
+            status: tbd
+      - group: Бар
+        status: custom
+        note: решение принято ранее и сохраняется
         items:
-          - role: Барные стулья
-            product: 4 шт., бежево-коричневая обивка, деревянное сиденье, тёмные ножки
-          - role: Круглый стол
-            product: Тёмная бордово-коричневая столешница, чёрное подстолье
-            size: Ø 800 мм
-          - role: Обеденные кресла
-            product: 3 шт., коньячная кожа, светлое дерево
-      - group: Гостиная
-        status: tbd
-        note: образ и размеры зафиксированы, конкретные изделия выбираются
-        items:
-          - role: Диван
-            product: На дубовом основании, кремовая обивка букле
-            size: 2600 × 1000 мм
-          - role: Консоль за диваном
-            product: Светлая каменная столешница, деревянная полка
-            size: 2000 × 400 × 700 мм
-          - role: Журнальный стол
-            product: Овальный, светлая столешница, деревянное подстолье
-            size: 1500 × 600 мм
-          - role: Кресло
-            product: Светлая обивка, деревянный каркас
-          - role: Тумба под телевизор
-            product: Дерево, тёмные детали
-            size: 3375 × 400 × 460 мм
-          - role: Телевизор
-            product: Диагональ 98 дюймов, модель не выбрана
-          - role: Акустика
-            product: Sonus faber Lumina II, 2 шт.
+          - role: Бар
+            product: Ореховая отделка, высокая витрина с подсветкой, открытая вентиляция винного шкафа
+          - role: Винный шкаф
+            product: Meyvel MV28-KBT2
             status: product
-            url: https://www.sonusfaber.com/en/products/lumina-ii/tech-specs
+            url: https://ru.meyvel.com/product/vinnye-shkafy/vinnyy-shkaf-meyvel-mv28-kbt2/
+      - group: Столовая
+        status: tbd
+        note: образ и размеры зафиксированы, изделия выбираются
+        items:
+          - role: Круглый стол
+            product: Три стула; стол и стулья сдвинуты от двери на террасу, чтобы освободить проход
+            size: Ø 800 мм
+      - group: Гостиная
+        note: мягкая группа на шесть мест
+        items:
+          - role: Основной диван
+            product: Poliform Saint-Germain, два торцевых модуля, ткань Siro 01 Bianco; четыре места
+            status: product
+            size: 3020 × 1000 мм, сиденье 370 мм
+            url: https://www.poliform.it/en/products/saint-germain/
+          - role: Второй диван
+            product: B&B Italia Le Bambole — Bibambola, ткань Sila White; два места
+            status: product
+            size: 1690 × 910 × 750 мм
+            url: https://www.bebitalia.com/en-us/en-le-bambole-divani.html
+          - role: Журнальный стол
+            product: Прозрачное стекло на двух светлых каменных опорах из травертина; заказная конструкция
+            status: custom
+            size: 1500 × 600 × 380 мм
           - role: Камин
-            product: Короб до потолка со светлой штукатуркой; топка подбирается
-            size: 1600 × 750 мм
+            product: Цельная светлая керамогранитная облицовка существующего объёма — Calacatta Delicato; топка и решётки сохраняются
+            status: custom
+          - role: Телевизор и тумба
+            product: По проекту диагональ 98 дюймов; модели не выбраны
+            status: tbd
+      - group: Стены, роспись и пол
+        note: образцы и пробные выкрасы — до заказа
+        items:
+          - role: Роспись
+            product: Заказная лесная панорама — единая композиция на стенах гостиной; концепт авторской росписи или печати, изготовитель не выбран
+            status: custom
+          - role: Стены
+            product: Little Greene Slaked Lime 105, Intelligent Matt — тёплый молочный фон
+            status: product
+            url: https://www.littlegreene.eu/slaked-lime
+          - role: Пол
+            product: Atlas Concorde Marvel Shine Calacatta Delicato, Matte Sensitech; сплошное покрытие — предложение, границы покрытий по проекту уточняются
+            status: product
+            size: 1200 × 1200 × 9 мм
+            url: https://www.atlasconcorde.com/en/ac-collection/marvel-shine/calacatta-delicato/matte-sensitech-120x120-9-a4q4
       - group: Свет
         status: tbd
-        note: место и тип зафиксированы, комплекты уточняются
+        note: изделия предложены, комплекты и крепления уточняются
         items:
-          - role: Встроенные светильники
-            product: 27 шт., тёплый свет; референс Flos Light Shadow Pro
-            url: https://professional.flos.com/en/global/product/light-shadow-pro-45-fixed-optic-medium-05.2501.14/
-            link_text: Референс
+          - role: Три каскадных подвеса
+            product: Terzani Atlantis 0A13S, финиш brushed bronze
+            status: product
+            size: тело 500 × 550 × 760 мм
+            url: https://www.terzani.com/en/products/preciousdesign/atlantis?filter=suspension&id=68
           - role: Подвесы над полуостровом
-            product: 4 шт., чёрные; референс HAY Compass
-            url: https://www.hay.com/en-gb/lighting/pendant-lights/
-            link_text: Референс
-          - role: Кольца над столом
-            product: Три, Ø 600, 800 и 1000 мм; образ Panzeri Zero Round
-            url: https://panzeri.it/en/products/product-family/design/indoor/zero-round/109/
-            link_text: Референс
-          - role: Подсветка кухни
-            product: Скрытые линии тёплого света под навесными шкафами и в цоколе — новое предложение
-      - group: Отделка
-        status: tbd
-        note: направление зафиксировано, материалы и образцы подбираются
+            product: HAY Compass Pendant 260, Soft Black, 4 шт.
+            status: product
+            url: https://www.hay.com/hay/lighting/pendant-lamp/compass-pendant-260-soft-black
+          - role: Встроенные светильники
+            product: По проекту, тёплый свет; модель уточняется
+      - group: Окна
+        note: предложение; образцы тканей и обмер — до заказа
         items:
-          - role: Пол
-            product: "Единая светлая серо-бежевая поверхность под камень; по проекту кухня — плитка, гостиная — ламинат: материал и граница требуют решения"
-          - role: Стены
-            product: Тёплая песочно-бежевая и белая окраска; акцентная стена у кухни в тёмном тёплом тоне
-          - role: Потолок и балка
-            product: Тёплый белый потолок; балка — тёмный металл
-    accessories_note: Растение в кашпо — антураж; шторы, ковры и декор в этой версии не показаны.
+          - role: Портьеры высокого окна
+            product: Création Baumann UNIVERSAL V 0100390, матовая плотная ткань, светлый тёплый greige
+            status: product
+            url: https://creationbaumann.com/en/product/universal-v/
+          - role: Тюль
+            product: Création Baumann WISH 0102325, полупрозрачный креп, молочный
+            status: product
+            url: https://creationbaumann.com/en/product/wish/
+          - role: Карнизы
+            product: Silent Gliss 5600, два независимых ряда в проёме; портьера в складке Wave 60
+            status: product
+            url: https://www.silentglissglobal.com/englb/products/view/curtain-systems/curtain-track-systems/electric/5600/
+          - role: Кухонное окно
+            product: Luxaflex, ткань Sirius Screen 10% 6556 — три рулонных полотна по секциям окна, показаны поднятыми
+            status: product
+            url: https://www.luxaflex.co.uk/products/sirius-screen-10-6556-roller-blind/
+    accessories_note: "Посуда, растения, книги и предметы на полках — антураж кадра. Сад и лес за окнами — образ участка по проекту, не фотография. Шторы показаны раскрытыми; закрытое состояние в эту версию не входит."
     versions:
       - n: 1
         date: 2026-09-13
         images:
-          - id: b-day
-            evening: b-evening
-            caption: Из гостиной к кухне и полуострову
-          - id: a-day
-            evening: a-evening
-            caption: Кухня
-          - id: c-day
-            evening: c-evening
-            caption: Столовая, гостиная, камин и телевизор
-
+          - { id: b-day, evening: b-evening, caption: Из гостиной к кухне и полуострову }
+          - { id: a-day, evening: a-evening, caption: Кухня }
+          - { id: c-day, evening: c-evening, caption: Столовая, гостиная, камин и телевизор }
+      - n: 2
+        date: 2026-09-23
+        note: "Новый образ помещения — один из вариантов для обсуждения. Планировка, проёмы и остекление — по проекту; мягкая группа на шесть мест расставлена по размерной схеме, проходы проверены. Изображения — эскизная визуализация: рисунок камня, фактуры тканей и мелкие детали условны."
+        images:
+          - { id: b-day, evening: b-evening, caption: Из гостиной к кухне, бару и столовой }
+          - { id: c-day, evening: c-evening, caption: "Гостиная: камин, телевизор, роспись и высокое окно" }
+          - { id: a-day, evening: a-evening, caption: Кухня }
+          - { id: d-day, evening: d-evening, caption: Проход в холл и бар }
+          - { id: bar-day, evening: bar-evening, caption: Бар с витриной и винным шкафом }
+          - { id: top-day, caption: Вид сверху, без потолка }
   - code: "1.09"
     slug: 1-09
     name: Кладовая

@@ -61,6 +61,10 @@ def prepare(book: dict) -> dict:
                     img["slide_day"] = len(slides)
                     slides.append({"src": img["src"], "caption": img["caption"]})
             cur["slides"] = slides
+            for d in r.get("drawings") or []:          # technical figures for the "По проекту" section
+                db = f"img/{r['slug']}/v{cur['n']}/{d['id']}"
+                d["src"] = f"{db}-1600.webp"
+                d["src_small"] = f"{db}-900.webp"
             r["cover"] = cur["images"][0]
             r["url"] = f"rooms/{r['slug']}/"
         # plan overlay: polygon points in percent (from plan_poly, or derived from plan_box)
