@@ -6,7 +6,7 @@ site:
   subtitle: Книга интерьеров
   description: Визуализации интерьеров частного дома, по помещениям, в актуальных версиях.
   base_url: https://fortydopng.github.io/ova-house-book/
-  version: 17
+  version: 18
   updated: 2026-09-25
   hero:
     room: "1.11"
