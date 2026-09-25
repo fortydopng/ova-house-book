@@ -151,6 +151,17 @@
   </section>
   {% endif %}
 
+  {% if room.related %}
+  <section class="section section--related">
+    <div class="wrap wrap--narrow">
+      <h2>Отдельно</h2>
+      {% for x in room.related %}
+      <p><a class="back" href="{{ root }}{{ x.url }}">{{ x.title }}</a>{% if x.text %} — {{ x.text }}{% endif %}</p>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
   <section class="section section--nav">
     <div class="wrap">
       <a class="back" href="{{ root }}">Все помещения</a>

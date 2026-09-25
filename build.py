@@ -137,6 +137,40 @@ def prepare_references(refs: dict) -> dict:
     return refs
 
 
+def prepare_fireplace(fp: dict) -> dict:
+    """Fireplace variants page (content/fireplace.yaml): image paths, slide order, counts."""
+    fp["date_text"] = ru_date(fp["date"])
+    base = f"img/fireplace/v{fp['img_version']}"
+    slides, by_stem = [], {}
+    n_var = 0
+    for g in fp["groups"]:
+        for v in g["variants"]:
+            n_var += 1
+            total = len(v["images"])
+            imgs = []
+            for n, stem in enumerate(v["images"], 1):
+                im = {"stem": stem, "n": n, "src": f"{base}/{stem}-1600.webp",
+                      "src_small": f"{base}/{stem}-900.webp", "src_crop": f"{base}/{stem}-crop-600.webp",
+                      "slide": len(slides)}
+                slides.append({"src": im["src"], "id": v["id"], "title": v["title"], "n": n,
+                               "total": total, "anchor": v["slug"]})
+                imgs.append(im)
+                by_stem[stem] = im
+            v["images"] = imgs
+    fp["slides"] = slides
+    fp["home_items"] = [by_stem[s] for s in fp.get("home_strip", []) if s in by_stem]
+    fp["url"] = f"{fp['slug']}/"
+    n_img = len(slides)
+    fp["count_note"] = f"{ru_count(n_var, 'вариант', 'варианта', 'вариантов')}, {ru_count(n_img, 'изображение', 'изображения', 'изображений')}"
+    return fp
+
+
+def ru_count(n: int, one: str, few: str, many: str) -> str:
+    r10, r100 = n % 10, n % 100
+    word = one if (r10 == 1 and r100 != 11) else few if (2 <= r10 <= 4 and not 12 <= r100 <= 14) else many
+    return f"{n} {word}"
+
+
 def attach_room_refs(book: dict, refs: dict | None) -> None:
     """Resolve a room's `references` (REF-IDs + note) against the references page."""
     by_id = {it["id"]: it for it in refs["items"]} if refs else {}
@@ -159,6 +193,11 @@ def build() -> None:
         refs = prepare_references(yaml.safe_load(refs_path.read_text(encoding="utf-8"))["references"])
     book["refs"] = refs
     attach_room_refs(book, refs)
+    fp_path = ROOT / "content" / "fireplace.yaml"
+    fp = None
+    if fp_path.exists():
+        fp = prepare_fireplace(yaml.safe_load(fp_path.read_text(encoding="utf-8"))["fireplace"])
+    book["fp"] = fp
     env = Environment(loader=FileSystemLoader(ROOT / "templates"),
                       autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
     build_id = dt.datetime.now().strftime("%Y%m%d%H%M")
@@ -171,8 +210,15 @@ def build() -> None:
 
     # pages
     (DOCS / "index.html").write_text(
-        env.get_template("index.html").render(book=book, site=book["site"], refs=refs, root="", build_id=build_id),
+        env.get_template("index.html").render(book=book, site=book["site"], refs=refs, fp=fp, root="", build_id=build_id),
         encoding="utf-8")
+    if fp:
+        d = DOCS / fp["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(
+            env.get_template("fireplace.html").render(book=book, site=book["site"], fp=fp, root="../",
+                                                      build_id=build_id),
+            encoding="utf-8")
     if refs:
         d = DOCS / refs["slug"]
         d.mkdir(parents=True, exist_ok=True)
@@ -196,6 +242,7 @@ def build() -> None:
     (DOCS / ".nojekyll").write_text("")
     (DOCS / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
     extra = f" + references ({len(refs['slides'])} images)" if refs else ""
+    extra += f" + fireplace ({len(fp['slides'])} images)" if fp else ""
     print(f"built {len(book['visualized'])} room page(s) + index{extra}, build {build_id}")
 
 

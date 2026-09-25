@@ -48,6 +48,21 @@
     </div>
   </section>
 
+  {% if fp %}
+  <section class="section section--refs section--fp">
+    <div class="wrap">
+      <h2>{{ fp.title }}</h2>
+      <p class="lead">{{ fp.home_lead }}</p>
+      <a class="strip" href="{{ root }}{{ fp.url }}" aria-label="Открыть варианты камина">
+        {% for it in fp.home_items %}
+        <img src="{{ root }}{{ it.src_crop }}" width="600" height="1024" alt="Вариант оформления камина" loading="lazy">
+        {% endfor %}
+      </a>
+      <p class="strip__link"><a class="back" href="{{ root }}{{ fp.url }}">Открыть варианты</a></p>
+    </div>
+  </section>
+  {% endif %}
+
   <section class="section section--plan">
     <div class="wrap">
       <h2>План первого этажа</h2>

@@ -128,3 +128,26 @@
   }, { rootMargin: '-56px 0px -55% 0px', threshold: 0 });
   Array.prototype.forEach.call(document.querySelectorAll('.refs__group'), function (sec) { io.observe(sec); });
 })();
+
+(function () {
+  // Fireplace variants: keep each strip's "n из N" counter in step with the slide in view
+  var strips = document.querySelectorAll('.var__strip');
+  Array.prototype.forEach.call(strips, function (strip) {
+    var count = strip.parentNode.querySelector('.var__count span');
+    var slides = strip.children;
+    if (!count || slides.length < 2) return;
+    var timer = null;
+    function update() {
+      var x = strip.scrollLeft, base = slides[0].offsetLeft, best = 0, bd = Infinity;
+      for (var i = 0; i < slides.length; i++) {
+        var d = Math.abs(slides[i].offsetLeft - base - x);
+        if (d < bd) { bd = d; best = i; }
+      }
+      count.textContent = best + 1;
+    }
+    strip.addEventListener('scroll', function () {
+      if (timer) return;
+      timer = setTimeout(function () { timer = null; update(); }, 80);
+    }, { passive: true });
+  });
+})();
