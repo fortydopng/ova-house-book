@@ -160,6 +160,7 @@ def prepare_fireplace(fp: dict) -> dict:
     fp["slides"] = slides
     fp["home_items"] = [by_stem[s] for s in fp.get("home_strip", []) if s in by_stem]
     fp["url"] = f"{fp['slug']}/"
+    fp["root"] = "../" * (fp["slug"].count("/") + 1)
     n_img = len(slides)
     fp["count_note"] = f"{ru_count(n_var, 'вариант', 'варианта', 'вариантов')}, {ru_count(n_img, 'изображение', 'изображения', 'изображений')}"
     return fp
@@ -193,10 +194,12 @@ def build() -> None:
         refs = prepare_references(yaml.safe_load(refs_path.read_text(encoding="utf-8"))["references"])
     book["refs"] = refs
     attach_room_refs(book, refs)
-    fp_path = ROOT / "content" / "fireplace.yaml"
-    fp = None
-    if fp_path.exists():
-        fp = prepare_fireplace(yaml.safe_load(fp_path.read_text(encoding="utf-8"))["fireplace"])
+    fp_pages = []
+    for name in ("fireplace.yaml", "fireplace_earlier.yaml"):
+        fp_path = ROOT / "content" / name
+        if fp_path.exists():
+            fp_pages.append(prepare_fireplace(yaml.safe_load(fp_path.read_text(encoding="utf-8"))["fireplace"]))
+    fp = fp_pages[0] if fp_pages else None
     book["fp"] = fp
     env = Environment(loader=FileSystemLoader(ROOT / "templates"),
                       autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
@@ -212,11 +215,11 @@ def build() -> None:
     (DOCS / "index.html").write_text(
         env.get_template("index.html").render(book=book, site=book["site"], refs=refs, fp=fp, root="", build_id=build_id),
         encoding="utf-8")
-    if fp:
-        d = DOCS / fp["slug"]
+    for page in fp_pages:
+        d = DOCS / page["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(
-            env.get_template("fireplace.html").render(book=book, site=book["site"], fp=fp, root="../",
+            env.get_template("fireplace.html").render(book=book, site=book["site"], fp=page, root=page["root"],
                                                       build_id=build_id),
             encoding="utf-8")
     if refs:
@@ -242,7 +245,7 @@ def build() -> None:
     (DOCS / ".nojekyll").write_text("")
     (DOCS / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
     extra = f" + references ({len(refs['slides'])} images)" if refs else ""
-    extra += f" + fireplace ({len(fp['slides'])} images)" if fp else ""
+    extra += "".join(f" + {pg['slug']} ({len(pg['slides'])} images)" for pg in fp_pages)
     print(f"built {len(book['visualized'])} room page(s) + index{extra}, build {build_id}")
 
 

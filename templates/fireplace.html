@@ -14,6 +14,9 @@
       <p class="room__note">{{ para.replace('\n', ' ') }}</p>
       {% endfor %}
       <p class="room__note fp__howto">{{ fp.how_to }}</p>
+      {% for x in fp.links %}
+      <p class="room__note fp__link"><a class="back" href="{{ root }}{{ x.url }}">{{ x.title }}</a>{% if x.text %} — {{ x.text }}{% endif %}</p>
+      {% endfor %}
     </div>
   </header>
 
@@ -72,6 +75,9 @@
   <section class="section section--nav">
     <div class="wrap wrap--narrow">
       <p class="caption">{{ fp.source_note }}</p>
+      {% for x in fp.links %}
+      <p><a class="back" href="{{ root }}{{ x.url }}">{{ x.title }}</a></p>
+      {% endfor %}
       <p><a class="back" href="{{ root }}rooms/1-08/">Кухня-гостиная 1.08</a></p>
       <a class="back" href="{{ root }}">Все помещения</a>
     </div>

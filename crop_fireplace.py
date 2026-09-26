@@ -8,7 +8,6 @@ whole view. Crop keeps the left 600/1024 of the width (full height), whatever th
 """
 import sys
 from pathlib import Path
-import yaml
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
@@ -17,8 +16,7 @@ QUALITY = 84
 
 
 def main() -> int:
-    fp = yaml.safe_load((ROOT / "content" / "fireplace.yaml").read_text(encoding="utf-8"))["fireplace"]
-    d = ROOT / "docs" / "img" / "fireplace" / f"v{fp['img_version']}"
+    d = ROOT / "docs" / "img" / "fireplace" / "v1"   # both fireplace pages share this folder
     n = 0
     for src in sorted(d.glob("k-*-1600.webp")):
         im = Image.open(src).convert("RGB")
