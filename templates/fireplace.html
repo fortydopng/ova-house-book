@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ fp.title }} — {{ site.title }}{% endblock %}
 {% block ogtitle %}{{ fp.title }} — {{ site.title }}{% endblock %}
+{% block ogdesc %}{{ fp.og_description or site.description }}{% endblock %}
+{% block ogimage %}{% if fp.og %}{{ site.base_url }}{{ fp.og }}{% else %}{{ site.base_url }}og.jpg{% endif %}{% endblock %}
 {% block bodyclass %}refs fp{% endblock %}
 {% block body %}
 <main>

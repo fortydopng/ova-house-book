@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ room.code }} {{ room.name }} — {{ site.title }}{% endblock %}
 {% block ogtitle %}{{ room.name }} — {{ site.title }}{% endblock %}
+{% block ogdesc %}{{ room.name }} {{ room.code }}: визуализации помещения, версия {{ room.current.n }}.{% endblock %}
+{% block ogimage %}{% if room.og %}{{ site.base_url }}{{ room.og }}{% else %}{{ site.base_url }}og.jpg{% endif %}{% endblock %}
 {% block bodyclass %}room{% endblock %}
 {% block body %}
 <main>

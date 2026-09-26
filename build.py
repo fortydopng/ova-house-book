@@ -161,6 +161,7 @@ def prepare_fireplace(fp: dict) -> dict:
     fp["home_items"] = [by_stem[s] for s in fp.get("home_strip", []) if s in by_stem]
     fp["url"] = f"{fp['slug']}/"
     fp["root"] = "../" * (fp["slug"].count("/") + 1)
+    fp["og_slug"] = fp["slug"].replace("/", "-")
     n_img = len(slides)
     fp["count_note"] = f"{ru_count(n_var, 'вариант', 'варианта', 'вариантов')}, {ru_count(n_img, 'изображение', 'изображения', 'изображений')}"
     return fp
@@ -186,6 +187,41 @@ def attach_room_refs(book: dict, refs: dict | None) -> None:
         r["ref_records"] = recs
 
 
+def make_og(src: Path, out: Path, anchor: float = 0.5) -> None:
+    """Link-preview image 1200×630 (Telegram, WhatsApp, iMessage): crop the source to 1.9:1.
+    anchor — which band of a tall source to keep (0 = top, 1 = bottom)."""
+    from PIL import Image
+    im = Image.open(src).convert("RGB")
+    w, h = im.size
+    tw, th = 1200, 630
+    if w / h > tw / th:
+        cw = round(h * tw / th); x0 = (w - cw) // 2; im = im.crop((x0, 0, x0 + cw, h))
+    else:
+        ch = round(w * th / tw); y0 = round((h - ch) * anchor); im = im.crop((0, y0, w, y0 + ch))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    im.resize((tw, th), Image.LANCZOS).save(out, "JPEG", quality=86, optimize=True, progressive=True)
+
+
+def build_og_images(book: dict, fp_pages: list) -> None:
+    """docs/og.jpg for the site, docs/og/<slug>.jpg per room and per fireplace page."""
+    site = book["site"]
+    og = site.get("og") or {}
+    room = next(x for x in book["rooms"] if x["code"] == og.get("room", site["hero"]["room"]))
+    img = next(i for i in room["current"]["images"] if i["id"] == og.get("image", site["hero"]["image"]))
+    src = img.get("src_evening") if og.get("light") == "evening" and img.get("src_evening") else img["src"]
+    make_og(DOCS / src, DOCS / "og.jpg", og.get("anchor", 0.5))
+    for r in book["rooms"]:
+        if r.get("visualized") and r.get("cover"):
+            make_og(DOCS / r["cover"]["src"], DOCS / "og" / f"{r['slug']}.jpg", 0.5)
+            r["og"] = f"og/{r['slug']}.jpg"
+    for pg in fp_pages:
+        stem = pg.get("og_image")
+        if stem:
+            make_og(DOCS / f"img/fireplace/v{pg['img_version']}/{stem}-1600.webp",
+                    DOCS / "og" / f"{pg['og_slug']}.jpg", pg.get("og_anchor", 0.5))
+            pg["og"] = f"og/{pg['og_slug']}.jpg"
+
+
 def build() -> None:
     book = prepare(yaml.safe_load((ROOT / "content" / "book.yaml").read_text(encoding="utf-8")))
     refs_path = ROOT / "content" / "references.yaml"
@@ -201,6 +237,7 @@ def build() -> None:
             fp_pages.append(prepare_fireplace(yaml.safe_load(fp_path.read_text(encoding="utf-8"))["fireplace"]))
     fp = fp_pages[0] if fp_pages else None
     book["fp"] = fp
+    build_og_images(book, fp_pages)
     env = Environment(loader=FileSystemLoader(ROOT / "templates"),
                       autoescape=select_autoescape(["html"]), trim_blocks=True, lstrip_blocks=True)
     build_id = dt.datetime.now().strftime("%Y%m%d%H%M")
